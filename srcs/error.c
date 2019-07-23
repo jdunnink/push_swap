@@ -4,7 +4,7 @@
 void	error(int error_code)
 {
 	if (error_code == 1)
-		ft_putendl("Error 1: no argument provided --> usage: ./checker <input_list>");
+		ft_putendl("Error 1: no argument provided");
 	else if	(error_code == 2)
 		ft_putendl("Error 2: could not allocated memory for new stacks struct");
 	else if (error_code == 3)

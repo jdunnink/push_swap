@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/22 18:02:20 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/07/22 18:27:03 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/07/23 14:30:42 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	swap_b(t_stacks **stacks)
 	int		*tmp;
 
 	if (stacks == NULL)
+		return ;
+	if (*stacks == NULL)
 		return ;
 	b_curr = (*stacks)->b;
 	if (b_curr == NULL)

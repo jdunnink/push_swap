@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   swap_a.c                                           :+:    :+:            */
+/*   copy_stacks.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/07/22 18:02:20 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/07/23 14:34:28 by jdunnink      ########   odam.nl         */
+/*   Created: 2019/07/23 13:30:42 by jdunnink       #+#    #+#                */
+/*   Updated: 2019/07/23 14:34:39 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shared.h"
 
-void	swap_a(t_stacks **stacks)
+t_stacks *copy_stacks(t_stacks *stacks)
 {
-	t_list	*a_curr;
-	t_list	*a_next;
-	int		*tmp;
+	t_stacks *dest;
 
-	if (stacks == NULL)
-		return ;
-	if (*stacks == NULL)
-		return ;
-	a_curr = (*stacks)->a;
-	if (a_curr == NULL)
-		return ;
-	a_next = a_curr->next;
-	if (a_next == NULL)
-		return ;
-	tmp = a_curr->content;
-	a_curr->content = a_next->content;
-	a_next->content = tmp;
-	return ;
+	dest = (t_stacks *)malloc(sizeof(t_stacks));
+	if (!dest)
+		error(2);
+	if (stacks->a != NULL)
+		dest->a = ft_lstcpy(stacks->a);
+	else
+		dest->a = NULL;
+	if (stacks->b != NULL)
+		dest->b = ft_lstcpy(stacks->b);
+	else
+		dest->b = NULL;
+	return (dest);
 }

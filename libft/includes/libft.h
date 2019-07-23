@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/03/20 10:03:12 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/07/22 17:21:57 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/07/23 12:42:29 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ size_t			ft_strlen(const char *str);
 size_t			ft_count_digits(char *str);
 size_t			ft_uint_numlen(unsigned long long value, int base);
 size_t			ft_int_numlen(long long value, int base);
+size_t			ft_listlen(t_list *list);
 
 /*
 **	boolean identifiers

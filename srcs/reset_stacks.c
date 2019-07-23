@@ -1,35 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   swap_a.c                                           :+:    :+:            */
+/*   reset_stacks.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/07/22 18:02:20 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/07/23 14:34:28 by jdunnink      ########   odam.nl         */
+/*   Created: 2019/07/23 13:37:26 by jdunnink       #+#    #+#                */
+/*   Updated: 2019/07/23 14:29:08 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shared.h"
 
-void	swap_a(t_stacks **stacks)
+static void	free_stacks(t_stacks **stacks)
 {
-	t_list	*a_curr;
-	t_list	*a_next;
-	int		*tmp;
+	t_stacks *target;
 
-	if (stacks == NULL)
+	target = *stacks;
+	if (!target)
 		return ;
-	if (*stacks == NULL)
-		return ;
-	a_curr = (*stacks)->a;
-	if (a_curr == NULL)
-		return ;
-	a_next = a_curr->next;
-	if (a_next == NULL)
-		return ;
-	tmp = a_curr->content;
-	a_curr->content = a_next->content;
-	a_next->content = tmp;
-	return ;
+	if (target->a != NULL)
+		ft_lstdel(&(target->a), &ft_del);
+	if (target->b != NULL)
+		ft_lstdel(&(target->b), &ft_del);
+	free(*stacks);
+	*stacks = NULL;
+}
+
+void	reset_stacks(t_stacks **stacks, t_stacks **backup)
+{
+	free_stacks(stacks);
+	*stacks = *backup;
+	*backup = NULL;
 }

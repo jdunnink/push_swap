@@ -1,35 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   swap_a.c                                           :+:    :+:            */
+/*   ft_listlen.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/07/22 18:02:20 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/07/23 14:34:28 by jdunnink      ########   odam.nl         */
+/*   Created: 2019/07/23 12:41:20 by jdunnink       #+#    #+#                */
+/*   Updated: 2019/07/23 12:42:12 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shared.h"
+#include "libft.h"
 
-void	swap_a(t_stacks **stacks)
+size_t ft_listlen(t_list *list)
 {
-	t_list	*a_curr;
-	t_list	*a_next;
-	int		*tmp;
+	size_t len;
+	t_list *iter;
 
-	if (stacks == NULL)
-		return ;
-	if (*stacks == NULL)
-		return ;
-	a_curr = (*stacks)->a;
-	if (a_curr == NULL)
-		return ;
-	a_next = a_curr->next;
-	if (a_next == NULL)
-		return ;
-	tmp = a_curr->content;
-	a_curr->content = a_next->content;
-	a_next->content = tmp;
-	return ;
+	len = 0;
+	iter = list;
+	while (iter)
+	{
+		iter = iter->next;
+		len++;
+	}
+	return (len);
 }

@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/22 18:02:20 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/07/22 19:24:05 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/07/23 14:33:34 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,14 @@ void	rev_rotate_a(t_stacks **stacks)
 	t_list *trail;
 	t_list *tmp;
 
+	if (stacks == NULL)
+		return ;
+	if (*stacks == NULL)
+		return ;
 	iter = (*stacks)->a;
 	if (iter == NULL)
+		return ;
+	if (ft_listlen(iter) < 2)
 		return ;
 	trail = iter;
 	while (iter->next)
