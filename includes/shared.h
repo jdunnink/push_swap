@@ -20,6 +20,7 @@ void			init_stacks(t_stacks **stacks);
 void			read_input(int argc, char **argv, t_stacks **stacks);
 void			error(int error_code);
 int				check_sort(t_list *stack);
+int				check_rev_sort(t_list *stack);
 int				check_solved(t_stacks *stacks);
 t_stacks		*copy_stacks(t_stacks *stacks);
 void			reset_stacks(t_stacks **stacks, t_stacks **backup);

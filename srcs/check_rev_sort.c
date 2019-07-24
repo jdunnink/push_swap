@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   push_swap.h                                        :+:    :+:            */
+/*   check_rev_sort.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/06/19 12:32:01 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/07/24 13:26:08 by jdunnink      ########   odam.nl         */
+/*   Created: 2019/07/23 12:33:37 by jdunnink       #+#    #+#                */
+/*   Updated: 2019/07/24 13:15:54 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "shared.h"
 
-# include "../libft/includes/libft.h"
-# include "../libft/includes/get_next_line.h"
-# include "shared.h"
+int	check_rev_sort(t_list *stack)
+{
+	t_list	*iter;
+	int		curr;
+	int		next;
 
-char	*brute_force(t_stacks **stacks);
-char	*track_sort(t_stacks **stacks);
-int		try_solution(char *str, t_stacks **stacks);
-char	*push_ab(t_stacks **stacks, int *direction);
-char	*push_ba(t_stacks **stacks, int *direction);
-
-#endif
+	iter = stack;
+	if (iter == NULL)
+		return (1);
+	while (iter->next)
+	{
+		curr = *(int *)iter->content;
+		next = *(int *)iter->next->content;
+		if (next > curr)
+			return (0);
+		iter = iter->next;
+	}
+	return (1);
+}

@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 12:18:43 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/07/23 21:23:00 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/07/24 13:44:57 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int	main(int argc, char **argv)
 		solution = brute_force(&stacks);
 	else
 		solution = track_sort(&stacks);
-	
 	printf("ending solution  : %s\n", solution);
+	printf("total instructions: %lu\n", ft_strlen(solution));
 	print_state(stacks);
 	return (0);
 }
