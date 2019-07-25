@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/19 12:32:01 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/07/24 13:26:08 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/07/25 17:38:58 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,8 @@
 # include "shared.h"
 
 char	*brute_force(t_stacks **stacks);
-char	*track_sort(t_stacks **stacks);
 int		try_solution(char *str, t_stacks **stacks);
-char	*push_ab(t_stacks **stacks, int *direction);
-char	*push_ba(t_stacks **stacks, int *direction);
+int		instruct(char *str, t_stacks **stacks, char **solution);
+char	*quick_sort(t_stacks **stacks);
 
 #endif
