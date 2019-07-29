@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   check_sort.c                                       :+:    :+:            */
+/*   ps_insertion_sort.c                                :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/07/23 12:33:37 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/07/29 12:58:51 by jdunnink      ########   odam.nl         */
+/*   Created: 2019/07/29 09:25:25 by jdunnink       #+#    #+#                */
+/*   Updated: 2019/07/29 12:49:32 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shared.h"
+#include "push_swap.h"
 
 static int	is_lowest(int pivot, t_list *stack)
 {
@@ -50,24 +50,47 @@ static int	is_highest(int pivot, t_list *stack)
 	return (0);
 }
 
-int	check_sort(t_list *stack)
+char	*insertion_sort(t_stacks **stacks)
 {
-	t_list	*iter;
+	char	*solution;
 	int		curr;
+	int		curr_b;
 	int		next;
 
-	iter = stack;
-	if (iter == NULL)
-		return (1);
-	while (iter->next)
+	printf("insertion sort is called with state: \n");
+
+	print_state(*stacks);
+	solution = NULL; 
+	while (1)
 	{
-		curr = *(int *)iter->content;
-		next = *(int *)iter->next->content;
-		if (next < curr)
+		curr = *(int *)(*stacks)->a->content;
+		next = *(int *)(*stacks)->a->next->content;
+		if (curr > next && is_highest(curr, (*stacks)->a) == 0)
 		{
-			return (0);
+			if (instruct(ft_strdup("bi"), stacks, &solution) == 1)
+				break ;
 		}
-		iter = iter->next;
+		else if (ft_listlen((*stacks)->b) > 0)
+		{
+			curr_b = *(int *)(*stacks)->b->content;
+			if (curr < curr_b && next > curr_b)
+			{
+				if (instruct(ft_strdup("fa"), stacks, &solution) == 1)
+					break ;
+			}
+			else
+			{
+				if (instruct(ft_ctostr('f'), stacks, &solution) == 1)
+					break ;		
+			}
+		}
+		else
+		{
+			if (instruct(ft_ctostr('f'), stacks, &solution) == 1)
+				break ;
+		}
 	}
-	return (1);
+	while (ft_listlen((*stacks)->b) > 0)
+		instruct(ft_ctostr('a'), stacks, &solution);
+	return (solution);
 }

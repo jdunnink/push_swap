@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 12:51:21 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/07/25 20:49:18 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/07/29 12:48:05 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@ static char	*read_instr(char *next_instr)
 {
 	if (next_instr == NULL)
 		return (NULL);
+	else if (ft_strcmp(next_instr, "bi") == 0)
+		return ("push_b -> rev_rotate_a");
+	else if (ft_strcmp(next_instr, "fa") == 0)
+		return ("rotate_a -> push_a");
+	else if (ft_strcmp(next_instr, "fb") == 0)
+		return ("rotate_a -> push_b");
 	else if (ft_strcmp(next_instr, "af") == 0)
 		return ("push_a --> rotate_a");
 	else if (ft_strcmp(next_instr, "bg") == 0)
@@ -76,53 +82,10 @@ static	void	execute(char code, t_stacks **stacks)
 		rev_rotate_rotate(stacks);
 }
 
-static 	void	check_swap(char **instruction, t_stacks **stacks, char stack)
-{
-	int		curr;
-	int		next;
-	int		last;
-	t_list *iter;
-
-	if (stack == 'a')
-	{
-		if (ft_listlen((*stacks)->a) < 1)
-			return ;
-		curr = *(int *)(*stacks)->b->content;
-		next = *(int *)(*stacks)->a->content;
-		iter = (*stacks)->a;
-		while (iter->next)
-			iter = iter->next;
-		last = *(int *)iter->content;
-		if (curr > last)
-			*instruction = ft_stradd(*instruction, ft_ctostr('f'));
-		else if (curr > next)
-			*instruction = ft_stradd(*instruction, ft_ctostr('c'));
-	}
-	else if (stack == 'b')
-	{
-		if (ft_listlen((*stacks)->b) < 1)
-			return ;
-		curr = *(int *)(*stacks)->a->content;
-		next = *(int *)(*stacks)->b->content;
-		iter = (*stacks)->b;
-		while (iter->next)
-			iter = iter->next;
-		last = *(int *)iter->content;
-		if (curr < last)
-			*instruction = ft_stradd(*instruction, ft_ctostr('g'));
-		else if (curr < next)
-			*instruction = ft_stradd(*instruction, ft_ctostr('d'));
-	}
-}
-
 int		instruct(char *str, t_stacks **stacks, char **solution)
 {
 	unsigned i;
 
-	if (ft_strcmp(str, "a") == 0)
-		check_swap(&str, stacks, 'a');
-	else if (ft_strcmp(str, "b") == 0)
-		check_swap(&str, stacks, 'b');
 	printf("	next instruction : %s\n", read_instr(str));
 	i = 0;
 	while (str[i] != '\0')
@@ -130,7 +93,7 @@ int		instruct(char *str, t_stacks **stacks, char **solution)
 		execute(str[i], stacks);
 		i++;
 	}
-//	print_state(*stacks);
+	print_state(*stacks);
 	*solution = ft_stradd(*solution, str);
 	if (check_solved(*stacks) == 1)
 		return (1);

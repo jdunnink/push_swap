@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/25 14:31:36 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/07/25 20:44:36 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/07/29 12:29:41 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,9 +210,13 @@ char	*quick_sort(t_stacks **stacks)
 	t_list	*pivots;
 
 	solution = NULL;
+	pivots = NULL;
+
+//	solution = improve_pivot(stacks);
+
 	solution = ft_stradd(solution , quick_sort_a(stacks, &pivots));
 	if (check_solved(*stacks) == 1)
 		return (solution);
 	solution = ft_stradd(solution, quick_sort_b(stacks, &pivots));
-	return (solution);;
+	return (solution);
 }
