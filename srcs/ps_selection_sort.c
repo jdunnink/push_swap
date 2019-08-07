@@ -6,30 +6,11 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/29 13:01:34 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/07/29 15:48:30 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/07 14:04:02 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-static	char	*adjust_target(t_stacks **stacks, char **solution, int *direction)
-{
-	t_list	*target;
-	int		curr;
-	int 	next;
-	int		next_next;
-
-	if (*direction == -1)
-		target = (*stacks)->b;
-	else
-		target = (*stacks)->a;
-
-	if (ft_listlen(target) <= 1)
-		return (NULL);
-	curr = *(int *)
-
-	
-} 
 
 static 	char 	*choose_rev_rotate(t_stacks **stacks, char **solution, int *direction)
 {
@@ -240,15 +221,10 @@ static	char	*select_push(t_stacks **stacks, char **solution, int *direction)
 
 	printf("select_push is called1! \n");
 
-	if (*solution != NULL)
-	{
-		last_instr = ft_str_tail(*solution);
-		if (*last_instr == 'a' || *last_instr == 'b')				// if the previous instruction was a push
-		{
-			if (adjust_target(stacks, solution, direction) != NULL)
-				return (*solution);										// order the just pushed element
-		}
-	}
+	/*
+	**	if the last instruction was a push --> check for swap/rotate options in the other stack
+	*/
+
 	if (*direction == -1)
 		iter = (*stacks)->a;
 	else
