@@ -6,7 +6,7 @@
 #    By: jdunnink <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/03/20 09:33:47 by jdunnink       #+#    #+#                 #
-#    Updated: 2019/08/07 15:03:43 by jdunnink      ########   odam.nl          #
+#    Updated: 2019/08/08 16:14:08 by jdunnink      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,10 +31,9 @@ CHECKER_SRC =	ch_main.c				\
 PUSH_SWAP_SRC = ps_main.c				\
 				ps_brute_force.c		\
 				ps_try_solution.c		\
-				ps_quicksort.c			\
-				ps_insertion_sort.c		\
 				ps_selection_sort.c		\
 				ps_position_sort.c		\
+				ps_insertion_sort.c		\
 				ps_instruct.c			\
 				error.c					\
 				print_state.c			\

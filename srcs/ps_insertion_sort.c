@@ -1,96 +1,68 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   ps_insertion_sort.c                                :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jdunnink <marvin@codam.nl>                   +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2019/07/29 09:25:25 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/07/29 12:49:32 by jdunnink      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	is_lowest(int pivot, t_list *stack)
+static	int		find_highest(t_list *stack_b)
 {
-	int		lowest;
-	t_list	*iter;
+	int highest;
+	t_list *iter;
+	int	cmp;
 
-	iter = stack;
-	lowest = *(int *)iter->content;
-	iter = iter->next;
-	while (iter)
-	{
-		if (*(int *)iter->content < lowest)
-			lowest = *(int *)iter->content;
-		iter = iter->next;
-	}
-	if (pivot == lowest)
-		return (1);
-	return (0);
-}
-
-static int	is_highest(int pivot, t_list *stack)
-{
-	int		highest;
-	t_list	*iter;
-
-	iter = stack;
-	highest = *(int *)iter->content;
-	iter = iter->next;
+	highest = *(int *)stack_b->content;
+	iter = stack_b->next;
 	while (iter)
 	{
 		if (*(int *)iter->content > highest)
 			highest = *(int *)iter->content;
 		iter = iter->next;
 	}
-	if (pivot == highest)
-		return (1);
-	return (0);
+	return (highest);
 }
 
 char	*insertion_sort(t_stacks **stacks)
 {
 	char	*solution;
 	int		curr;
-	int		curr_b;
 	int		next;
+	int		last;
+	int		curr_b;
+	int 	highest;
+	int 	high_counter;
+	t_list *iter;
 
-	printf("insertion sort is called with state: \n");
+	high_counter = 0;
+	printf("insertion sort is called!\n");
 
-	print_state(*stacks);
-	solution = NULL; 
-	while (1)
+	highest = find_highest((*stacks)->a);
+	solution = NULL;
+	while (check_sort((*stacks)->a) == 0 || (*stacks)->b)
 	{
 		curr = *(int *)(*stacks)->a->content;
 		next = *(int *)(*stacks)->a->next->content;
-		if (curr > next && is_highest(curr, (*stacks)->a) == 0)
-		{
-			if (instruct(ft_strdup("bi"), stacks, &solution) == 1)
-				break ;
-		}
-		else if (ft_listlen((*stacks)->b) > 0)
+
+		if (curr == highest)
+			high_counter++;
+
+		if ((*stacks)->b)
 		{
 			curr_b = *(int *)(*stacks)->b->content;
-			if (curr < curr_b && next > curr_b)
+			if (curr_b < curr && curr_b > last)
 			{
-				if (instruct(ft_strdup("fa"), stacks, &solution) == 1)
-					break ;
+				instruct(ft_ctostr('a'), stacks, &solution);
+				continue ;
 			}
-			else
-			{
-				if (instruct(ft_ctostr('f'), stacks, &solution) == 1)
-					break ;		
-			}
+		}
+
+		if (curr > next && curr != highest)
+		{
+			curr_b = curr;
+			instruct(ft_strdup("bi"), stacks, &solution);
 		}
 		else
 		{
-			if (instruct(ft_ctostr('f'), stacks, &solution) == 1)
-				break ;
+			last = curr;
+			instruct(ft_ctostr('f'), stacks, &solution);
 		}
 	}
-	while (ft_listlen((*stacks)->b) > 0)
-		instruct(ft_ctostr('a'), stacks, &solution);
+	printf("	THE HIGH POINT WAS PASSED %i TIMES\n", high_counter);
 	return (solution);
 }

@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 12:51:21 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/07/29 12:48:05 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/08 17:00:40 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static char	*read_instr(char *next_instr)
 		return ("rotate_a -> push_a");
 	else if (ft_strcmp(next_instr, "fb") == 0)
 		return ("rotate_a -> push_b");
+	else if (ft_strcmp(next_instr, "gb") == 0)
+		return ("rotate_b -> push_b");
 	else if (ft_strcmp(next_instr, "af") == 0)
 		return ("push_a --> rotate_a");
 	else if (ft_strcmp(next_instr, "bg") == 0)

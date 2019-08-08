@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/19 12:32:01 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/07 15:04:05 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/08 16:13:52 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,19 @@
 # include "../libft/includes/get_next_line.h"
 # include "shared.h"
 
+typedef struct s_index
+{
+	int nb;
+	int index;
+}				t_index;
+
 char	*brute_force(t_stacks **stacks);
 int		try_solution(char *str, t_stacks **stacks);
 
 int		instruct(char *str, t_stacks **stacks, char **solution);
 
-char	*quick_sort(t_stacks **stacks);
-char	*insertion_sort(t_stacks **stacks);
 char	*selection_sort(t_stacks **stacks);
-char 	*position_sort(t_stacks **stacks);
+char 	*position_sort(t_stacks **stacks, double precision);
+char	*insertion_sort(t_stacks **stacks);
 
 #endif

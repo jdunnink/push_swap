@@ -6,248 +6,101 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/29 13:01:34 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/07 14:04:02 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/08 15:52:55 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static 	char 	*choose_rev_rotate(t_stacks **stacks, char **solution, int *direction)
+int		find_lowest(t_list *stack)
 {
-	if (*direction == -1)
-		instruct(ft_ctostr('i'), stacks, solution);		// rev rotate a
-	else
-	instruct(ft_ctostr('j'), stacks, solution);			// rev rotate b
-	return (*solution);
-}
-
-static 	char 	*choose_rotate(t_stacks **stacks, char **solution, int *direction)
-{
-	int top_o;				// the top of the other stack
-	int last_o;				// the next of the other stack
+	int lowest;
 	t_list *iter;
+	int	cmp;
 
-	printf("	choose_rotate is called!\n");
-
-	if (*direction == -1)
-		iter = (*stacks)->b;
-	else
-		iter = (*stacks)->a;
-	top_o = *(int *)iter->content;
-	while (iter->next)
+	lowest = *(int *)stack->content;
+	iter = stack->next;
+	while (iter)
+	{
+		if (*(int *)iter->content < lowest)
+			lowest = *(int *)iter->content;
 		iter = iter->next;
-	last_o = *(int *)iter->content;
-	if (top_o <= last_o && *direction == -1)
-		instruct(ft_ctostr('h'), stacks, solution);			// rotate both
-	else if (top_o >= last_o && *direction == 1)
-		instruct(ft_ctostr('h'), stacks, solution);			// rotate both
-	else if(*direction == -1)
-		instruct(ft_ctostr('f'), stacks, solution);			// rotate a
-	else
-		instruct(ft_ctostr('g'), stacks, solution);				// rotate b
-	return (*solution);
-} 
-
-static 	char 	*choose_swap(t_stacks **stacks, char **solution, int *direction)
-{
-	int top_o;				// the top of the other stack
-	int next_o;				// the next of the other stack
-	t_list *iter;
-
-	printf("	choose_swap is called!\n");
-
-	if (*direction == -1)
-		iter = (*stacks)->b;
-	else
-		iter = (*stacks)->a;
-
-	if (ft_listlen(iter) <= 1)
-	{
-		if (*direction == -1)
-			instruct(ft_ctostr('c'), stacks, solution);		// swap stack a
-		else
-			instruct(ft_ctostr('d'), stacks, solution);			// swap stack b
-		return (*solution);
 	}
-
-	top_o = *(int *)iter->content;
-	next_o = *(int *)iter->next->content;
-	printf("	direction == %i\n ", *direction);
-	if (next_o > top_o && *direction == -1)
-		instruct(ft_ctostr('e'), stacks, solution);		// swap both stacks
-	else if (next_o < top_o && *direction == 1)
-		instruct(ft_ctostr('e'), stacks, solution);		// swap both stacks
-	else if (*direction == -1)
-		instruct(ft_ctostr('c'), stacks, solution);		// swap stack a
-	else 
-		instruct(ft_ctostr('d'), stacks, solution);			// swap stack b
-	return (*solution);
+	return (lowest);
 }
 
-//	push the top int into the other stack, change direction if the src list is empty after pushing.
-
-static	char	*choose_curr(t_stacks **stacks, char **solution, int *direction)
+static	void	merge_stacks(t_stacks **stacks, char **solution)
 {
-	printf("	choose_curr is called!\n");
-
-	if (*direction == -1)
-		instruct(ft_ctostr('b'), stacks, solution);					// push into b
-	else
-		instruct(ft_ctostr('a'), stacks, solution);					// push into  a
-	if (*direction == -1 && ft_listlen((*stacks)->a) == 0)
-	{
-		printf("	direction is flipped !\n");
-		*direction = 1;												// change direction from A -> B to A <- B
-	}
-	else if (*direction == 1 && ft_listlen((*stacks)->b) == 0)
-	{
-		printf("	direction is flipped !\n");
-		*direction = -1;												// change direction from A <- B to A -> B
-	}
-	return (*solution);
-}
-
-//	move the next value to the top of the active stack using either swap/rotate/rev_rotate
-
-static	char	*choose_next(t_stacks **stacks, char **solution, int *direction)
-{
-	int curr;
-	int next_next;
-	t_list *iter;
-
-	printf("	choose_next is called!\n");
-
-	if (*direction == -1)
-		iter = (*stacks)->a;
-	else
-		iter = (*stacks)->b;
-	curr = *(int *)iter->content;
-	if (ft_listlen(iter) == 2)
-		return (choose_swap(stacks, solution, direction));			// choose swap or swapswap
-	iter = iter->next;
-	next_next = *(int *)iter->next->content;
-	if (*direction == -1)
-	{
-		if (curr <= next_next)								
-			return (choose_swap(stacks, solution, direction));			// choose swap or swapswap
-		return (choose_rotate(stacks, solution, direction));			// choose rotate or rotate/rotate
-	}
-	else 
-	{
-		if (curr >= next_next)								
-			return (choose_swap(stacks, solution, direction));			// choose swap or swapswap
-		return (choose_rotate(stacks, solution, direction));			// choose rotate or rotate/rotate
-	}
-}
-
-//	when listlen == 2, choose the lowest value and either push or move to top using swap/rotate/rev_rotate
-
-static	char	*choose_two(t_stacks **stacks, char **solution, int *direction)
-{
-	int		curr;
-	int		next;
+	int		highest;
+	int 	a_top;
+	int 	a_last;
+	int		b_top;
 	t_list	*iter;
 
-	printf("	choose_two is called!\n");
-
-	if (*direction == -1)
+	iter = (*stacks)->a;
+	highest = *(int *)(*stacks)->b->content;
+	while ((*stacks)->b)
+	{
+		a_top = *(int *)(*stacks)->a->content;
 		iter = (*stacks)->a;
-	else
-		iter = (*stacks)->b;
-	curr = *(int *)iter->content;
-	next = *(int *)iter->next->content;
-	if (*direction == -1)
-	{
-		if (curr <= next)
-			return (choose_curr(stacks, solution, direction));		// push the top of the stack into the other stack
+		while (iter->next)
+			iter = iter->next;
+		a_last = *(int *)iter->content;
+		b_top = *(int *)(*stacks)->b->content;
+		if (b_top < a_top && b_top > a_last)
+			instruct(ft_ctostr('a'), stacks, solution);
+		else if (a_top < b_top)
+			instruct(ft_ctostr('f'), stacks, solution);
 		else
-			return (choose_next(stacks, solution, direction));		// move the next value to the top of the active stack
+			instruct(ft_ctostr('i'), stacks, solution);
 	}
-	else
-	{
-		if (curr >= next)
-			return (choose_curr(stacks, solution, direction));		// push the top of the stack into the other stack
-		else
-			return (choose_next(stacks, solution, direction));		// move the next value to the top of the active stack
-	}
+	while (*(int *)(*stacks)->a->content != find_lowest((*stacks)->a))
+		instruct(ft_ctostr('i'), stacks, solution);
 }
 
-//	when listlen is >= 3, choose the lowest value and either push or move to top using swap/rotate/rev_rotate
-
-static	char	*choose_three(t_stacks **stacks, char **solution, int *direction)
+int		find_highest(t_list *stack_b)
 {
-	int	curr;
-	int next;
-	int last;
+	int highest;
 	t_list *iter;
+	int	cmp;
 
-	printf("	choose_three is called!\n");
-
-	if (*direction == -1)
-		iter = (*stacks)->a;
-	else
-		iter = (*stacks)->b;
-	curr = *(int *)iter->content;
-	next = *(int *)iter->next->content;
-	while (iter->next)
+	highest = *(int *)stack_b->content;
+	iter = stack_b->next;
+	while (iter)
+	{
+		if (*(int *)iter->content > highest)
+			highest = *(int *)iter->content;
 		iter = iter->next;
-	last = *(int *)iter->content;
-	if (*direction == -1)
-	{
-		if (curr <= next && curr <= last)
-			return (choose_curr(stacks, solution, direction));		// push the top of the stack into the other stack
-		else if (next < last && next < curr)
-			return (choose_next(stacks, solution, direction));		// move the next value to the top of the active stack
-		else
-			return (choose_rev_rotate(stacks, solution, direction));	// move the last value to the top of the active stack
 	}
-	else
-	{
-		if (curr >= next && curr >= last)
-			return (choose_curr(stacks, solution, direction));		// push the top of the stack into the other stack
-		else if (next > last && next > curr)
-			return (choose_next(stacks, solution, direction));		// move the next value to the top of the active stack
-		else
-			return (choose_rev_rotate(stacks, solution, direction));	// move the last value to the top of the active stack
-	}
+	return (highest);
 }
-
-// based on the size of the list, choose between pushing the first, next or last value
-
-static	char	*select_push(t_stacks **stacks, char **solution, int *direction)
-{
-	t_list	*iter;
-	char	*last_instr;
-
-	printf("select_push is called1! \n");
-
-	/*
-	**	if the last instruction was a push --> check for swap/rotate options in the other stack
-	*/
-
-	if (*direction == -1)
-		iter = (*stacks)->a;
-	else
-		iter = (*stacks)->b;
-	if (ft_listlen(iter) == 1)
-		return (choose_curr(stacks, solution, direction));		// push the top of the stack into the other stack
-	else if (ft_listlen(iter) >= 3)
-		return (choose_three(stacks, solution, direction));		// choose between three values
-	return (choose_two(stacks, solution, direction));			// choose between two values
-}
-
-//	sort the given stacks using selection sort
 
 char	*selection_sort(t_stacks **stacks)
 {
 	char	*solution;
-	int 	direction;
+	int 	curr;
+	int 	next;
+	int		highest;
+	int 	strike;
 
 	solution = NULL;
-	direction = -1;
-	while (check_sort((*stacks)->a) == 0 || check_rev_sort((*stacks)->b) == 0)
+	strike = 0;
+	highest = find_highest((*stacks)->b);
+	while (check_rev_sort((*stacks)->b) == 0)
 	{
-		solution = select_push(stacks, &solution, &direction);	// select a course of action
+		curr = *(int *)(*stacks)->b->content;
+		next = *(int *)(*stacks)->b->next->content;
+		if (curr == highest)
+			strike++;
+		if (strike == 2)
+			break ;
+		if (curr < next)
+			instruct(ft_ctostr('a'), stacks, &solution);
+		else
+			instruct(ft_ctostr('g'), stacks, &solution);
+		
 	}
+	instruct(ft_ctostr('a'), stacks, &solution);
+	merge_stacks(stacks, &solution);
 	return (solution);
 }
