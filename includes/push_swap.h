@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/19 12:32:01 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/08 16:13:52 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/09 15:02:29 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,9 @@ int		instruct(char *str, t_stacks **stacks, char **solution);
 char	*selection_sort(t_stacks **stacks);
 char 	*position_sort(t_stacks **stacks, double precision);
 char	*insertion_sort(t_stacks **stacks);
+
+
+void	show_redundant(char *solution);
+int		get_k(t_list *list, char stack);
 
 #endif

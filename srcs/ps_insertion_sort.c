@@ -26,11 +26,6 @@ char	*insertion_sort(t_stacks **stacks)
 	int		last;
 	int		curr_b;
 	int 	highest;
-	int 	high_counter;
-	t_list *iter;
-
-	high_counter = 0;
-	printf("insertion sort is called!\n");
 
 	highest = find_highest((*stacks)->a);
 	solution = NULL;
@@ -38,10 +33,6 @@ char	*insertion_sort(t_stacks **stacks)
 	{
 		curr = *(int *)(*stacks)->a->content;
 		next = *(int *)(*stacks)->a->next->content;
-
-		if (curr == highest)
-			high_counter++;
-
 		if ((*stacks)->b)
 		{
 			curr_b = *(int *)(*stacks)->b->content;
@@ -51,7 +42,6 @@ char	*insertion_sort(t_stacks **stacks)
 				continue ;
 			}
 		}
-
 		if (curr > next && curr != highest)
 		{
 			curr_b = curr;
@@ -63,6 +53,5 @@ char	*insertion_sort(t_stacks **stacks)
 			instruct(ft_ctostr('f'), stacks, &solution);
 		}
 	}
-	printf("	THE HIGH POINT WAS PASSED %i TIMES\n", high_counter);
 	return (solution);
 }

@@ -34,7 +34,7 @@ static 	t_list	*add_indices(t_stacks **stacks)
 	return (dest);
 }
 
-int	lookup_index(int *value, t_list *indices)
+static int	lookup_index(int *value, t_list *indices)
 {
 	int	val;
 	t_list		*iter;
