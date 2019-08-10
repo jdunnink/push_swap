@@ -6,11 +6,92 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 12:18:43 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/09 15:54:03 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/10 16:19:36 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+int	main(int argc, char **argv)
+{
+	t_stacks	*stacks;
+	char		*solution;
+	size_t		len;
+
+	stacks = NULL;
+	if (argc <= 1)
+		error(1);
+	else
+	{
+		init_stacks(&stacks);
+		read_input(argc, argv, &stacks);
+	}
+	len = ft_listlen(stacks->a);
+	if (len <= 5)
+		solution = brute_force(&stacks);
+	else if (len <= 100)
+		solution = chunk_sort(&stacks, 5);
+	else
+		solution = chunk_sort(&stacks, 10);
+	printf("ending solution  : %s\n", solution);
+	print_state(stacks);
+	return (0);
+}
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 
 int	main(int argc, char **argv)
 {
@@ -79,15 +160,19 @@ int	main(int argc, char **argv)
 		/////////////////////////////////////////////////////////////////////////////////////////
 	}
 	printf("ending solution  : %s\n", solution);
-//	printf("\ntotal instructions: %lu\n", ft_strlen(solution));
-	printf("	initial count: 0 // starting k: %i\n", k_start);
-	printf("	position_sort: %i // k after application: %i // sorting efficiency: %.10f\n", count_one, k_one, (double)(k_start - k_one) / count_one);
-	printf("	selection_sort: %i // k after application: %i // sorting efficiency: %.10f\n", count_two, k_two, (double)(k_one - k_two) / count_two);
-	printf("	insertion_sort: %i // k after application: %i // sorting efficiency: %.10f\n", count_three, k_three, (double)(k_two - k_three) / count_three);
-	printf("	total instructions: %lu // ending k: %i // total sorting efficiency: %.10f\n", ft_strlen(solution), k_three, (double)k_start / ft_strlen(solution));
-	show_redundant(solution);
+	if (len > 5)
+	{
+		printf("	initial count: 0 // starting k: %i\n", k_start);
+		printf("	position_sort: %i // k after application: %i // sorting efficiency: %.10f\n", count_one, k_one, (double)(k_start - k_one) / count_one);
+		printf("	selection_sort: %i // k after application: %i // sorting efficiency: %.10f\n", count_two, k_two, (double)(k_one - k_two) / count_two);
+		printf("	insertion_sort: %i // k after application: %i // sorting efficiency: %.10f\n", count_three, k_three, (double)(k_two - k_three) / count_three);
+		printf("	total instructions: %lu // ending k: %i // total sorting efficiency: %.10f\n", ft_strlen(solution), k_three, (double)k_start / ft_strlen(solution));
+		show_redundant(solution);
+	}
 //	printf("	starting k value: %i\n", k_start);
 //	printf("	ending k value: %i\n", k_three);
 	print_state(stacks);
 	return (0);
 }
+
+*/
