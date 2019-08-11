@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/07 14:50:01 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/07 14:58:32 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/11 14:40:34 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ t_list			*ft_lst_mergesort(t_list *list)
 	t_list	*two;
 	int		*cmp_one;
 	int		*cmp_two;
-	
+
 	one = NULL;
 	two = NULL;
 	cmp_one = NULL;

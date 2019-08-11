@@ -6,13 +6,11 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/09 12:56:11 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/09 15:36:19 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/11 15:18:19 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-//	determine how sorted a list is and return an average k value. (average diff between curr pos and dest pos)
 
 static 	t_list *ft_lstrev(t_list *list)
 {
@@ -20,6 +18,7 @@ static 	t_list *ft_lstrev(t_list *list)
 	t_list *dest;
 	int curr;
 
+	dest = NULL;
 	iter = list;
 	while (iter)
 	{
@@ -33,7 +32,8 @@ static 	t_list *ft_lstrev(t_list *list)
 static t_list *get_sorted(t_list *list)
 {
 	t_list *dest;
-
+	
+	dest = NULL;
 	dest = ft_lstcpy(list);
 	dest = ft_lst_mergesort(dest);
 	return (dest);
@@ -101,13 +101,14 @@ int 	median_k(t_list *k_values)
 		if (i == median)
 		{
 			median_k = *(int *)(iter->content);
-			printf("	median k: %i\n", median_k);
+//			printf("	median k: %i\n", median_k);
+			ft_lstdel(&sorted, &ft_del);
 			return (median_k);
 		}
 		iter = iter->next;
 		i++;
 	}
-	printf("ERROR\n");
+	ft_lstdel(&sorted, &ft_del);
 	return (0);
 }
 
@@ -120,12 +121,10 @@ int	get_k(t_list *list, char stack)
 	int 	index;
 	int 	*curr;
 	int 	index_diff;
-
-	printf("\n	get k is called!\n");
+	int 	median;
 
 	if (stack == 'b')
 		list = ft_lstrev(list);
-
 	i = 0;
 	index = 0;
 	index_diff = 0;
@@ -146,6 +145,9 @@ int	get_k(t_list *list, char stack)
 	}
 	if (stack == 'b')
 		ft_lstdel(&list, &ft_del);
+	ft_lstdel(&indices, &ft_del);
 	ft_putchar ('\n');
-	return (median_k(k_values));
+	median = median_k(k_values);
+	ft_lstdel(&k_values, &ft_del);
+	return (median);
 }

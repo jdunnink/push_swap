@@ -30,7 +30,7 @@ static 	t_list	*add_indices(t_stacks **stacks)
 		i++;
 		iter = iter->next;
 	}
-	//	FREE SORTED
+	ft_lstdel(&sorted, &ft_del);
 	return (dest);
 }
 
@@ -79,5 +79,6 @@ char 	*position_sort(t_stacks **stacks, double precision)
 		else
 			instruct(ft_ctostr('f'), stacks, &solution);
 	}
+	ft_lstdel(&indices, &ft_del);
 	return (solution);
 }

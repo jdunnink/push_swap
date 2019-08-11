@@ -6,18 +6,37 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/10 16:00:33 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/11 12:43:21 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/11 16:07:02 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static t_list *get_sorted(t_stacks **stacks)
+static 	t_list *ft_lstrev(t_list *list)
+{
+	t_list *iter;
+	t_list *dest;
+	int curr;
+
+	dest = NULL;
+	iter = list;
+	while (iter)
+	{
+		curr = *(int *)iter->content;
+		ft_lstpushfront(&curr, &dest, sizeof(int));
+		iter = iter->next;
+	}
+	ft_lstdel(&list, &ft_del);
+	return (dest);
+}
+
+static t_list *get_rev_sorted(t_stacks **stacks)
 {
 	t_list *dest;
 
-	dest = ft_lstcpy((*stacks)->a);
+	dest = ft_lstcpy((*stacks)->b);
 	dest = ft_lst_mergesort(dest);
+	dest = ft_lstrev(dest);
 	return (dest);
 }
 
@@ -31,7 +50,7 @@ static 	t_list	*add_indices(t_stacks **stacks)
 
 	i = 0;
 	dest = NULL;
-	sorted = get_sorted(stacks);
+	sorted = get_rev_sorted(stacks);
 	iter = sorted;
 	while (iter)
 	{
@@ -54,8 +73,6 @@ static 	void	adjust_indices(t_list *indices, int p_rate)
 	t_list *iter;
 	t_index *curr;
 
-	printf("	adjust indices is called!\n");
-
 	len = ft_listlen(indices);
 	nbs_per_chunk = len / p_rate;
 	iter = indices;
@@ -65,7 +82,6 @@ static 	void	adjust_indices(t_list *indices, int p_rate)
 	{
 		curr = (t_index *)iter->content;
 		curr->index = i;
-		printf("	setting index of value: %i to %i\n", curr->nb, curr->index);
 		j--;
 		if (j == 0)
 		{
@@ -116,26 +132,20 @@ static 	int 	find_next_target(t_list *stack, t_list *indices, int *curr_chunk, i
 		chunk_nb = lookup_index((int *)iter->content, indices);
 		if (chunk_nb == *curr_chunk)
 		{
-			printf("	value: %i, a member of chunk %i was found at absolute distance: %i\n", *(int *)iter->content, *curr_chunk, distance);
 			if (distance > median)
 			{
 				eval = (int)len - distance;
 				trig = eval;
-				printf("		absolute distance %i is higher than median %i, calculating real distance: %i\n", distance, median, (int)len - distance);
 			}
 			else
 				eval = distance;
 			if (eval < lowest)
-			{
 				lowest = eval;
-				printf("	a new lowest distance has been set at %i\n", eval);
-			}
 		}
 		distance++;
 		iter = iter->next;
 		if (iter == NULL && lowest == INT32_MAX)
 		{
-			printf("	no members of current chunk number: %i, moving to next chunk: %i\n", *curr_chunk, (*curr_chunk) + 1);
 			(*curr_chunk)++;
 			if (*curr_chunk > p_rate)
 				return (INT32_MAX);
@@ -146,7 +156,6 @@ static 	int 	find_next_target(t_list *stack, t_list *indices, int *curr_chunk, i
 	}
 	if (trig == lowest)
 		lowest *= -1;
-	printf("	target was found at: %i\n", lowest);
 	return (lowest);
 }
 
@@ -156,9 +165,7 @@ static	t_list	*update_indices(t_stacks **stacks, t_list **indices)
 	t_list		*iter;
 	t_index 	*curr;
 
-	printf("	update indices is called!\n");
-
-	if (!(*stacks)->a)
+	if (!(*stacks)->b)
 		return (*indices);
 
 	new = add_indices(stacks);
@@ -167,40 +174,10 @@ static	t_list	*update_indices(t_stacks **stacks, t_list **indices)
 	{
 		curr = iter->content;
 		curr->index = lookup_index(&(curr->nb), *indices);
-		printf(" the index of value %i has been set at %i\n", curr->nb, curr->index);
 		iter = iter->next;
 	}
 	ft_lstdel(indices, &ft_del);
 	return (new);
-}
-
-static 	void	push_swap(t_stacks **stacks, char **solution, char which)
-{
-	int top;
-	int next;
-	
-	if (which == 'b')
-	{
-		instruct(ft_ctostr('b'), stacks, solution);
-		if (ft_listlen((*stacks)->b) > 1)
-		{
-			top = *(int *)(*stacks)->b->content;
-			next = *(int *)(*stacks)->b->next->content;
-			if (next > top)
-				instruct(ft_ctostr('d'), stacks, solution);
-		}
-	}
-	else if (which == 'a')
-	{
-		instruct(ft_ctostr('a'), stacks, solution);
-		if (ft_listlen((*stacks)->a) > 1)
-		{
-			top = *(int *)(*stacks)->a->content;
-			next = *(int *)(*stacks)->a->next->content;
-			if (next > top)
-				instruct(ft_ctostr('c'), stacks, solution);
-		}
-	}
 }
 
 char	*chunk_sort(t_stacks **stacks, int p_rate)				// p_rate == partition rate (how many chunks?)
@@ -215,31 +192,31 @@ char	*chunk_sort(t_stacks **stacks, int p_rate)				// p_rate == partition rate (
 	indices = add_indices(stacks);
 	adjust_indices(indices, p_rate);
 	curr_chunk = 0;
-	iter = (*stacks)->a;
-	while ((*stacks)->a)									//	 while stack A is not empty
+	iter = (*stacks)->b;
+	while ((*stacks)->b)									//	 while stack A is not empty
 	{
-		distance = find_next_target((*stacks)->a, indices, &curr_chunk, p_rate);	//	find the next number to push
+		distance = find_next_target((*stacks)->b, indices, &curr_chunk, p_rate);	//	find the next number to push
 		if (distance == INT32_MAX)
 			break ;
 		if (distance == 0)													//	if number is at the top,
-			push_swap(stacks, &solution, 'b');
+			instruct(ft_ctostr('a'), stacks, &solution);
 		else if (distance > 0)												//	if the number is in the top half of the stack,
 		{
 			while (distance > 0)
 			{
-				instruct(ft_ctostr('f'), stacks, &solution);				//		rotate until number is at the top
+				instruct(ft_ctostr('g'), stacks, &solution);				//		rotate until number is at the top
 				distance--;
 			}
-			push_swap(stacks, &solution, 'b');
+			instruct(ft_ctostr('a'), stacks, &solution);
 		}
 		else if (distance < 0)												//  if the number is in the bottom half of the stack,
 		{
 			while (distance < 0)
 			{
-				instruct(ft_ctostr('i'), stacks, &solution);				//		rev_rotate until number is at the top
+				instruct(ft_ctostr('j'), stacks, &solution);				//		rev_rotate until number is at the top
 				distance++;
 			}
-			push_swap(stacks, &solution, 'b');
+			instruct(ft_ctostr('a'), stacks, &solution);
 		}
 		indices = update_indices(stacks, &indices);
 	}
