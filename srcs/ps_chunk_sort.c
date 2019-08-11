@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/10 16:00:33 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/11 16:07:02 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/11 18:17:48 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,7 @@ static	t_list	*update_indices(t_stacks **stacks, t_list **indices)
 	return (new);
 }
 
-char	*chunk_sort(t_stacks **stacks, int p_rate)				// p_rate == partition rate (how many chunks?)
+char	*chunk_sort(t_stacks **stacks, int p_rate)
 {
 	t_list	*indices;
 	t_list	*iter;
@@ -193,32 +193,32 @@ char	*chunk_sort(t_stacks **stacks, int p_rate)				// p_rate == partition rate (
 	adjust_indices(indices, p_rate);
 	curr_chunk = 0;
 	iter = (*stacks)->b;
-	while ((*stacks)->b)									//	 while stack A is not empty
+	while ((*stacks)->b)
 	{
-		distance = find_next_target((*stacks)->b, indices, &curr_chunk, p_rate);	//	find the next number to push
+		distance = find_next_target((*stacks)->b, indices, &curr_chunk, p_rate);
 		if (distance == INT32_MAX)
 			break ;
-		if (distance == 0)													//	if number is at the top,
+		if (distance == 0)
 			instruct(ft_ctostr('a'), stacks, &solution);
-		else if (distance > 0)												//	if the number is in the top half of the stack,
+		else if (distance > 0)
 		{
 			while (distance > 0)
 			{
-				instruct(ft_ctostr('g'), stacks, &solution);				//		rotate until number is at the top
+				instruct(ft_ctostr('g'), stacks, &solution);
 				distance--;
 			}
 			instruct(ft_ctostr('a'), stacks, &solution);
 		}
-		else if (distance < 0)												//  if the number is in the bottom half of the stack,
+		else if (distance < 0)
 		{
 			while (distance < 0)
 			{
-				instruct(ft_ctostr('j'), stacks, &solution);				//		rev_rotate until number is at the top
+				instruct(ft_ctostr('j'), stacks, &solution);
 				distance++;
 			}
 			instruct(ft_ctostr('a'), stacks, &solution);
 		}
 		indices = update_indices(stacks, &indices);
 	}
-	return (solution);									// return partial solution
+	return (solution);
 }

@@ -5,7 +5,6 @@ static	int		find_highest(t_list *stack_b)
 {
 	int highest;
 	t_list *iter;
-	int	cmp;
 
 	highest = *(int *)stack_b->content;
 	iter = stack_b->next;

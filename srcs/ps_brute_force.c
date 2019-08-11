@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 12:51:21 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/07/25 17:39:16 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/11 18:13:46 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static	int		is_all_k(char *solution)
 
 static	void	mod_solution(char **str)
 {
-	unsigned i;
 	char	*tail;
 
 	if (is_all_k(*str) == 1)
