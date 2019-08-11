@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   rotate_b.c                                         :+:    :+:            */
+/*   ps_lookup_index.c                                  :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/07/22 18:02:20 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/11 19:57:22 by jdunnink      ########   odam.nl         */
+/*   Created: 2019/08/09 12:56:11 by jdunnink       #+#    #+#                */
+/*   Updated: 2019/08/11 19:25:09 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shared.h"
+#include "push_swap.h"
 
-void	rotate_b(t_stacks **stacks)
+int	lookup_index(int *value, t_list *indices)
 {
-	t_list	*target;
-	t_list	*iter;
+	int	val;
+	t_list		*iter;
+	t_index 	*curr;
 
-	target = (*stacks)->b;
-	iter = (*stacks)->b;
-	if (target == NULL || target == NULL)
-		return ;
-	while (iter->next)
+	val = *value;
+	iter = indices;
+	while (iter)
+	{
+		curr = iter->content;
+		if (val == curr->nb)
+			return (curr->index);
 		iter = iter->next;
-	iter->next = target;
-	(*stacks)->b = (*stacks)->b->next;
-	target->next = NULL;
+	}
+	return (-1);
 }

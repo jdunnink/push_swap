@@ -1,15 +1,6 @@
 
 #include "push_swap.h"
 
-static t_list *get_sorted(t_stacks **stacks)
-{
-	t_list *dest;
-
-	dest = ft_lstcpy((*stacks)->a);
-	dest = ft_lst_mergesort(dest);
-	return (dest);
-}
-
 static 	t_list	*add_indices(t_stacks **stacks)
 {
 	t_list		*iter;
@@ -20,7 +11,7 @@ static 	t_list	*add_indices(t_stacks **stacks)
 
 	i = 0;
 	dest = NULL;
-	sorted = get_sorted(stacks);
+	sorted = get_sorted((*stacks)->a);
 	iter = sorted;
 	while (iter)
 	{
@@ -32,24 +23,6 @@ static 	t_list	*add_indices(t_stacks **stacks)
 	}
 	ft_lstdel(&sorted, &ft_del);
 	return (dest);
-}
-
-static int	lookup_index(int *value, t_list *indices)
-{
-	int	val;
-	t_list		*iter;
-	t_index 	*curr;
-
-	val = *value;
-	iter = indices;
-	while (iter)
-	{
-		curr = iter->content;
-		if (val == curr->nb)
-			return (curr->index);
-		iter = iter->next;
-	}
-	return (-1);
 }
 
 char 	*position_sort(t_stacks **stacks, double precision)
@@ -73,9 +46,7 @@ char 	*position_sort(t_stacks **stacks, double precision)
 			curr_pos++;
 		}
 		else if (curr_index < curr_pos)
-		{
 			instruct(ft_strdup("bg"), stacks, &solution);
-		}
 		else
 			instruct(ft_ctostr('f'), stacks, &solution);
 	}

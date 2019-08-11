@@ -1,29 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   rotate_b.c                                         :+:    :+:            */
+/*   ps_set_indices.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/07/22 18:02:20 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/11 19:57:22 by jdunnink      ########   odam.nl         */
+/*   Created: 2019/08/10 16:00:33 by jdunnink       #+#    #+#                */
+/*   Updated: 2019/08/11 20:00:32 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shared.h"
+#include "push_swap.h"
 
-void	rotate_b(t_stacks **stacks)
+t_list	*set_indices(t_stacks **stacks)
 {
-	t_list	*target;
-	t_list	*iter;
+	t_list		*iter;
+	t_list		*sorted;
+	t_index		new;
+	t_list		*dest;
+	unsigned	i;
 
-	target = (*stacks)->b;
-	iter = (*stacks)->b;
-	if (target == NULL || target == NULL)
-		return ;
-	while (iter->next)
+	i = 0;
+	dest = NULL;
+	sorted = get_rev_sorted(stacks);
+	iter = sorted;
+	while (iter)
+	{
+		new.index = i;
+		new.nb = *(int *)iter->content;
+		ft_lstpushback(&dest, &new, sizeof(t_index));
+		i++;
 		iter = iter->next;
-	iter->next = target;
-	(*stacks)->b = (*stacks)->b->next;
-	target->next = NULL;
+	}
+	ft_lstdel(&sorted, &ft_del);
+	return (dest);
 }

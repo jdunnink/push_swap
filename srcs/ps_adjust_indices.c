@@ -1,29 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   rotate_b.c                                         :+:    :+:            */
+/*   ps_adjust_indices.c                                :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/07/22 18:02:20 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/11 19:57:22 by jdunnink      ########   odam.nl         */
+/*   Created: 2019/08/10 16:00:33 by jdunnink       #+#    #+#                */
+/*   Updated: 2019/08/11 20:01:36 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shared.h"
+#include "push_swap.h"
 
-void	rotate_b(t_stacks **stacks)
+void	adjust_indices(t_list *indices, int p_rate)
 {
-	t_list	*target;
-	t_list	*iter;
+	size_t len;
+	int	nbs_per_chunk;
+	int			i;
+	int 		j;
+	t_list *iter;
+	t_index *curr;
 
-	target = (*stacks)->b;
-	iter = (*stacks)->b;
-	if (target == NULL || target == NULL)
-		return ;
-	while (iter->next)
+	len = ft_listlen(indices);
+	nbs_per_chunk = len / p_rate;
+	iter = indices;
+	i = 0;
+	j = nbs_per_chunk;
+	while (iter)
+	{
+		curr = (t_index *)iter->content;
+		curr->index = i;
+		j--;
+		if (j == 0)
+		{
+			j = nbs_per_chunk;
+			i++;
+		}
 		iter = iter->next;
-	iter->next = target;
-	(*stacks)->b = (*stacks)->b->next;
-	target->next = NULL;
+	}
 }

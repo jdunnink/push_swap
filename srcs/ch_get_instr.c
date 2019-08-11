@@ -1,10 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   ch_get_instr.c                                     :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jdunnink <marvin@codam.nl>                   +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2019/08/11 19:56:27 by jdunnink       #+#    #+#                */
+/*   Updated: 2019/08/11 19:57:02 by jdunnink      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "checker.h"
 
 static	void	execute(char *code, t_stacks **stacks)
 {
-	printf("executing instruction code: %s\n", code);
-
 	if (ft_strcmp("sa", code) == 0)
 		swap_a(stacks);
 	else if (ft_strcmp("sb", code) == 0)
@@ -32,7 +41,7 @@ static	void	execute(char *code, t_stacks **stacks)
 	print_state(*stacks);
 }
 
-void		get_instr(t_stacks **stacks)
+void			get_instr(t_stacks **stacks)
 {
 	char *instruction;
 

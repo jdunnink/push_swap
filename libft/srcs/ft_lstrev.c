@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   rotate_b.c                                         :+:    :+:            */
+/*   ft_lstrev.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/07/22 18:02:20 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/11 19:57:22 by jdunnink      ########   odam.nl         */
+/*   Created: 2019/08/11 18:38:41 by jdunnink       #+#    #+#                */
+/*   Updated: 2019/08/11 18:54:30 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shared.h"
+#include "libft.h"
 
-void	rotate_b(t_stacks **stacks)
+t_list *ft_lstrev(t_list *list)
 {
-	t_list	*target;
-	t_list	*iter;
+	t_list *iter;
+	t_list *dest;
+	int curr;
 
-	target = (*stacks)->b;
-	iter = (*stacks)->b;
-	if (target == NULL || target == NULL)
-		return ;
-	while (iter->next)
+	dest = NULL;
+	iter = list;
+	while (iter)
+	{
+		curr = *(int *)iter->content;
+		ft_lstpushfront(&curr, &dest, sizeof(int));
 		iter = iter->next;
-	iter->next = target;
-	(*stacks)->b = (*stacks)->b->next;
-	target->next = NULL;
+	}
+	return (dest);
 }

@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   rotate_b.c                                         :+:    :+:            */
+/*   ps_get_rev_sorted.c                                :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/07/22 18:02:20 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/11 19:57:22 by jdunnink      ########   odam.nl         */
+/*   Created: 2019/08/10 16:00:33 by jdunnink       #+#    #+#                */
+/*   Updated: 2019/08/11 19:59:11 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shared.h"
+#include "push_swap.h"
 
-void	rotate_b(t_stacks **stacks)
+t_list *get_rev_sorted(t_stacks **stacks)
 {
-	t_list	*target;
-	t_list	*iter;
+	t_list *dest;
+	t_list *tmp;
 
-	target = (*stacks)->b;
-	iter = (*stacks)->b;
-	if (target == NULL || target == NULL)
-		return ;
-	while (iter->next)
-		iter = iter->next;
-	iter->next = target;
-	(*stacks)->b = (*stacks)->b->next;
-	target->next = NULL;
+	dest = NULL;
+	dest = ft_lstcpy((*stacks)->b);
+	dest = ft_lst_mergesort(dest);
+	tmp = dest;
+	dest = ft_lstrev(dest);
+	ft_lstdel(&tmp, &ft_del);
+	return (dest);
 }

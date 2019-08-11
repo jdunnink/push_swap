@@ -6,178 +6,88 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/10 16:00:33 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/11 18:17:48 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/11 20:39:33 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static 	t_list *ft_lstrev(t_list *list)
+static 	void 	init_vars(t_ints *vars, t_list *stack, t_list **iter, size_t *len)
 {
-	t_list *iter;
-	t_list *dest;
-	int curr;
-
-	dest = NULL;
-	iter = list;
-	while (iter)
-	{
-		curr = *(int *)iter->content;
-		ft_lstpushfront(&curr, &dest, sizeof(int));
-		iter = iter->next;
-	}
-	ft_lstdel(&list, &ft_del);
-	return (dest);
+	vars->three = INT32_MAX;
+	vars->one = 0;
+	*len = ft_listlen(stack);
+	vars->two = *len / 2;
+	*iter = stack;
+	vars->four = 0;	
 }
 
-static t_list *get_rev_sorted(t_stacks **stacks)
+static 	void 	adjust_values(t_ints *vars, size_t len)
 {
-	t_list *dest;
-
-	dest = ft_lstcpy((*stacks)->b);
-	dest = ft_lst_mergesort(dest);
-	dest = ft_lstrev(dest);
-	return (dest);
-}
-
-static 	t_list	*add_indices(t_stacks **stacks)
-{
-	t_list		*iter;
-	t_list		*sorted;
-	t_index		new;
-	t_list		*dest;
-	unsigned	i;
-
-	i = 0;
-	dest = NULL;
-	sorted = get_rev_sorted(stacks);
-	iter = sorted;
-	while (iter)
-	{
-		new.index = i;
-		new.nb = *(int *)iter->content;
-		ft_lstpushback(&dest, &new, sizeof(t_index));
-		i++;
-		iter = iter->next;
-	}
-	ft_lstdel(&sorted, &ft_del);
-	return (dest);
-}
-
-static 	void	adjust_indices(t_list *indices, int p_rate)
-{
-	size_t len;
-	int	nbs_per_chunk;
-	int			i;
-	int 		j;
-	t_list *iter;
-	t_index *curr;
-
-	len = ft_listlen(indices);
-	nbs_per_chunk = len / p_rate;
-	iter = indices;
-	i = 0;
-	j = nbs_per_chunk;
-	while (iter)
-	{
-		curr = (t_index *)iter->content;
-		curr->index = i;
-		j--;
-		if (j == 0)
-		{
-			j = nbs_per_chunk;
-			i++;
-		}
-		iter = iter->next;
-	}
-}
-
-static int	lookup_index(int *value, t_list *indices)
-{
-	int	val;
-	t_list		*iter;
-	t_index 	*curr;
-
-	val = *value;
-	iter = indices;
-	while (iter)
-	{
-		curr = iter->content;
-		if (val == curr->nb)
-			return (curr->index);
-		iter = iter->next;
-	}
-	return (-1);
+	vars->five = (int)len - vars->one;
+	vars->four = vars->five;
 }
 
 static 	int 	find_next_target(t_list *stack, t_list *indices, int *curr_chunk, int p_rate)
 {
-	int distance;
-	int median;
 	size_t len;
 	t_list *iter;
-	int 	chunk_nb;
-	int 	eval;
-	int 	lowest;
-	int		trig;
+	t_ints vars;
 
-	lowest = INT32_MAX;
-	distance = 0;
-	len = ft_listlen(stack);
-	median = len / 2;
-	iter = stack;
-	trig = 0;
+	init_vars(&vars, stack, &iter, &len);
 	while (iter)
 	{
-		chunk_nb = lookup_index((int *)iter->content, indices);
-		if (chunk_nb == *curr_chunk)
+		vars.six = lookup_index((int *)iter->content, indices);
+		if (vars.six == *curr_chunk)
 		{
-			if (distance > median)
-			{
-				eval = (int)len - distance;
-				trig = eval;
-			}
+			if (vars.one > vars.two)
+				adjust_values(&vars, len);
 			else
-				eval = distance;
-			if (eval < lowest)
-				lowest = eval;
+				vars.five = vars.one;
+			if (vars.five < vars.three)
+				vars.three = vars.five;
 		}
-		distance++;
+		vars.one++;
 		iter = iter->next;
-		if (iter == NULL && lowest == INT32_MAX)
+		if (iter == NULL && vars.three == INT32_MAX)
 		{
 			(*curr_chunk)++;
 			if (*curr_chunk > p_rate)
 				return (INT32_MAX);
 			iter = stack;
-			distance = 0;
-		}
-		
+			vars.one = 0;
+		}	
 	}
-	if (trig == lowest)
-		lowest *= -1;
-	return (lowest);
+	if (vars.four == vars.three)
+		vars.three *= -1;
+	return (vars.three);
 }
 
-static	t_list	*update_indices(t_stacks **stacks, t_list **indices)
+static 	int 	check_distance(int *distance, t_stacks **stacks, char **solution)
 {
-	t_list		*new;
-	t_list		*iter;
-	t_index 	*curr;
-
-	if (!(*stacks)->b)
-		return (*indices);
-
-	new = add_indices(stacks);
-	iter = new;
-	while (iter)
+	if (*distance == INT32_MAX)
+		return (-1);
+	if (*distance == 0)
+		instruct(ft_ctostr('a'), stacks, solution);
+	else if (*distance > 0)
 	{
-		curr = iter->content;
-		curr->index = lookup_index(&(curr->nb), *indices);
-		iter = iter->next;
+		while (*distance > 0)
+		{
+			instruct(ft_ctostr('g'), stacks, solution);
+			(*distance)--;
+		}
+		instruct(ft_ctostr('a'), stacks, solution);
 	}
-	ft_lstdel(indices, &ft_del);
-	return (new);
+	else if (*distance < 0)
+	{
+		while (*distance < 0)
+		{
+			instruct(ft_ctostr('j'), stacks, solution);
+			(*distance)++;
+		}
+		instruct(ft_ctostr('a'), stacks, solution);
+	}
+	return (1);
 }
 
 char	*chunk_sort(t_stacks **stacks, int p_rate)
@@ -189,35 +99,15 @@ char	*chunk_sort(t_stacks **stacks, int p_rate)
 	int 	distance;
 
 	solution = NULL;
-	indices = add_indices(stacks);
+	indices = set_indices(stacks);
 	adjust_indices(indices, p_rate);
 	curr_chunk = 0;
 	iter = (*stacks)->b;
 	while ((*stacks)->b)
 	{
 		distance = find_next_target((*stacks)->b, indices, &curr_chunk, p_rate);
-		if (distance == INT32_MAX)
+		if (check_distance(&distance, stacks, &solution) == -1)
 			break ;
-		if (distance == 0)
-			instruct(ft_ctostr('a'), stacks, &solution);
-		else if (distance > 0)
-		{
-			while (distance > 0)
-			{
-				instruct(ft_ctostr('g'), stacks, &solution);
-				distance--;
-			}
-			instruct(ft_ctostr('a'), stacks, &solution);
-		}
-		else if (distance < 0)
-		{
-			while (distance < 0)
-			{
-				instruct(ft_ctostr('j'), stacks, &solution);
-				distance++;
-			}
-			instruct(ft_ctostr('a'), stacks, &solution);
-		}
 		indices = update_indices(stacks, &indices);
 	}
 	return (solution);

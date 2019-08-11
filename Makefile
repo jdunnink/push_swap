@@ -6,7 +6,7 @@
 #    By: jdunnink <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/03/20 09:33:47 by jdunnink       #+#    #+#                 #
-#    Updated: 2019/08/11 18:13:25 by jdunnink      ########   odam.nl          #
+#    Updated: 2019/08/11 20:05:05 by jdunnink      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,13 @@ PUSH_SWAP_SRC = ps_main.c				\
 				ps_insertion_sort.c		\
 				ps_chunk_sort.c			\
 				ps_instruct.c			\
-				ps_get_k.c				\
+				ps_get_sorted.c			\
+				ps_get_rev_sorted.c		\
+				ps_set_indices.c		\
+				ps_adjust_indices.c		\
+				ps_find_index.c			\
+				ps_update_indices.c		\
+				ps_lookup_index.c		\
 				error.c					\
 				print_state.c			\
 				swap_a.c				\
@@ -74,7 +80,7 @@ PUSH_SWAP_NAME = push_swap
 
 HEADER = -I includes/
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS =
 LIBS = -L libft/ -lft
 
 all: $(CHECKER_NAME) $(PUSH_SWAP_NAME)

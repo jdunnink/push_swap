@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 12:51:21 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/11 18:14:13 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/11 19:06:11 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,14 @@ int		instruct(char *str, t_stacks **stacks, char **solution)
 {
 	unsigned i;
 
-	printf("	next instruction : %s\n", read_instr(str));
+//	printf("	next instruction : %s\n", read_instr(str));
 	i = 0;
 	while (str[i] != '\0')
 	{
 		execute(str[i], stacks);
 		i++;
 	}
-	print_state(*stacks);
+//	print_state(*stacks);
 	*solution = ft_stradd(*solution, str);
 	if (check_solved(*stacks) == 1)
 		return (1);
