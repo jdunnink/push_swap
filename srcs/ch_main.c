@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/22 13:47:28 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/12 10:54:46 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/12 11:58:46 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	main(int argc, char **argv)
 		read_input(argc, argv, &stacks);
 	}
 	get_instr(&stacks);
-	print_state(stacks);
 	if (check_solved(stacks) == 1)
 		ft_putendl("OK");
 	else

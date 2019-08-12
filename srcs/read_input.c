@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/08/12 07:47:17 by jdunnink      #+#    #+#                 */
-/*   Updated: 2019/08/12 07:47:17 by jdunnink      ########   odam.nl         */
+/*   Created: 2019/08/12 07:47:17 by jdunnink       #+#    #+#                */
+/*   Updated: 2019/08/12 13:40:01 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,23 @@ static	void	check_dup(t_list *a_list)
 	}
 }
 
+static	void	process_alt(char *str, t_stacks **stacks)
+{
+	char	**args;
+	int		i;
+
+	i = 0;
+	args = ft_strsplit(str, ' ');
+	while (args[i] != NULL)
+	{
+		if (check_nbr(args[i]) == 1)
+			push(args[i], stacks);
+		else
+			error(3);
+		i++;
+	}
+}
+
 void			read_input(int argc, char **argv, t_stacks **stacks)
 {
 	unsigned i;
@@ -74,6 +91,8 @@ void			read_input(int argc, char **argv, t_stacks **stacks)
 	{
 		if (check_nbr(argv[i]) == 1)
 			push(argv[i], stacks);
+		else if (argc == 2)
+			process_alt(argv[i], stacks);
 		else
 			error(3);
 		i++;
