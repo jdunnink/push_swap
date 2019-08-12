@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/12 08:35:49 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/12 11:02:43 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/12 11:04:09 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ static	void	print_instr(char code)
 	else if (code == 'k')
 		ft_putendl("rrr");
 }
-
-#include <stdio.h>
 
 void			print_solution(char *solution)
 {
