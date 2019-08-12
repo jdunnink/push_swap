@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 12:18:43 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/12 08:03:41 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/12 09:20:09 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,12 @@ int				main(int argc, char **argv)
 		read_input(argc, argv, &stacks);
 	}
 	len = ft_listlen(stacks->a);
-	choose_path(len, &stacks, &solution);
-	print_solution(solution);
+	if (len > 1 && check_solved(stacks) == 0)
+	{
+		choose_path(len, &stacks, &solution);
+		print_solution(solution);
+		free(solution);
+	}
 	free_stacks(&stacks);
-	free(solution);
 	return (0);
 }

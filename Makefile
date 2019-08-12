@@ -6,7 +6,7 @@
 #    By: jdunnink <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/03/20 09:33:47 by jdunnink       #+#    #+#                 #
-#    Updated: 2019/08/12 08:43:49 by jdunnink      ########   odam.nl          #
+#    Updated: 2019/08/12 09:17:29 by jdunnink      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,8 @@ CHECKER_SRC =	ch_main.c				\
 				rev_rotate_rotate.c		\
 				init_stacks.c			\
 				read_input.c			\
+				check_solved.c			\
+				check_sort.c			\
 
 PUSH_SWAP_SRC = ps_main.c				\
 				ps_brute_force.c		\

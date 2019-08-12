@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/12 08:35:49 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/12 08:43:00 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/12 09:21:43 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static	void	print_instr(char code)
 		ft_putendl("rrr");
 }
 
-void 	print_solution(char *solution)
+void			print_solution(char *solution)
 {
 	unsigned i;
 

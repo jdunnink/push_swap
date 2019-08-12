@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/11 19:56:27 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/11 19:57:02 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/12 09:15:15 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ static	void	execute(char *code, t_stacks **stacks)
 		rev_rotate_rotate(stacks);
 	else
 		error(6);
-	print_state(*stacks);
 }
 
 void			get_instr(t_stacks **stacks)
