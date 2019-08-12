@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/10 16:00:33 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/11 20:03:15 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/12 07:59:40 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	find_index(int *value, t_list *indices)
 {
-	int	val;
+	int			val;
 	t_list		*iter;
-	t_index 	*curr;
+	t_index		*curr;
 
 	val = *value;
 	iter = indices;

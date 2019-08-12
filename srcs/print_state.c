@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   print_state.c                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jdunnink <marvin@codam.nl>                   +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2019/08/12 08:00:15 by jdunnink       #+#    #+#                */
+/*   Updated: 2019/08/12 08:00:39 by jdunnink      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "shared.h"
 
 static	void	print_stack(t_list *stack)
 {
-	t_list *iter;
-	int nbr;
+	t_list	*iter;
+	int		nbr;
 
 	iter = stack;
 	while (iter)
@@ -17,7 +28,7 @@ static	void	print_stack(t_list *stack)
 	ft_putchar('\n');
 }
 
-void	print_state(t_stacks *stacks)
+void			print_state(t_stacks *stacks)
 {
 	ft_putchar('\n');
 	ft_putstr("STACK A | ");

@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/03/20 18:54:24 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/07/22 14:27:00 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/12 08:10:02 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ long long	ft_atoll(const char *str)
 	res = 0;
 	i = 0;
 	neg = 1;
-	while (ft_isspace(str[i])== 1)
+	while (ft_isspace(str[i]) == 1)
 		++i;
 	if (str[i] == '-')
 		neg = -1;

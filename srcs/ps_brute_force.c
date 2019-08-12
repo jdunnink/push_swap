@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 12:51:21 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/11 18:13:46 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/12 07:45:53 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,3 @@ char			*brute_force(t_stacks **stacks)
 	}
 	return (solution);
 }
-

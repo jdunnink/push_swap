@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/07 14:50:01 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/11 14:40:34 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/12 08:11:43 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,16 +101,16 @@ t_list			*ft_lst_mergesort(t_list *list)
 	size_t	list_len;
 	t_list	*one;
 	t_list	*two;
-	int		*cmp_one;
-	int		*cmp_two;
+	int		*cmp1;
+	int		*cmp2;
 
 	one = NULL;
 	two = NULL;
-	cmp_one = NULL;
-	cmp_two = NULL;
+	cmp1 = NULL;
+	cmp2 = NULL;
 	list_len = get_listlen(list);
 	if (list_len == 1 || list->next == 0)
 		return (list);
 	list_split(&one, &two, list_len, &list);
-	return (merge(ft_lst_mergesort(one), ft_lst_mergesort(two), cmp_one, cmp_two));
+	return (merge(ft_lst_mergesort(one), ft_lst_mergesort(two), cmp1, cmp2));
 }

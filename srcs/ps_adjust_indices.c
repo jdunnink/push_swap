@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/10 16:00:33 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/11 20:01:36 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/12 08:02:13 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 
 void	adjust_indices(t_list *indices, int p_rate)
 {
-	size_t len;
-	int	nbs_per_chunk;
+	size_t		len;
+	int			nbs_per_chunk;
 	int			i;
-	int 		j;
-	t_list *iter;
-	t_index *curr;
+	int			j;
+	t_list		*iter;
 
 	len = ft_listlen(indices);
 	nbs_per_chunk = len / p_rate;
@@ -28,8 +27,7 @@ void	adjust_indices(t_list *indices, int p_rate)
 	j = nbs_per_chunk;
 	while (iter)
 	{
-		curr = (t_index *)iter->content;
-		curr->index = i;
+		((t_index *)iter->content)->index = i;
 		j--;
 		if (j == 0)
 		{

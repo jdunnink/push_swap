@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/19 12:32:01 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/11 20:04:57 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/12 08:43:38 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef struct	s_index
 	int			index;
 }				t_index;
 
-typedef	struct 	s_ints
+typedef	struct	s_ints
 {
 	int			one;
 	int			two;
@@ -46,5 +46,6 @@ t_list			*set_indices(t_stacks **stacks);
 void			adjust_indices(t_list *indices, int p_rate);
 int				find_index(int *value, t_list *indices);
 t_list			*update_indices(t_stacks **stacks, t_list **indices);
+void			print_solution(char *solution);
 
 #endif

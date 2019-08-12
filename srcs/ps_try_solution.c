@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ps_instruct.c                                      :+:    :+:            */
+/*   ps_try_solution.c                                  :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 12:51:21 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/07/25 17:38:48 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/12 07:58:10 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static	void	execute(char code, t_stacks **stacks)
 		rev_rotate_rotate(stacks);
 }
 
-int		try_solution(char *str, t_stacks **stacks)
+int				try_solution(char *str, t_stacks **stacks)
 {
 	unsigned i;
 

@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   ps_insertion_sort.c                                :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jdunnink <marvin@codam.nl>                   +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2019/08/12 07:57:12 by jdunnink       #+#    #+#                */
+/*   Updated: 2019/08/12 07:59:07 by jdunnink      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
 static	int		find_highest(t_list *stack_b)
 {
-	int highest;
-	t_list *iter;
+	int		highest;
+	t_list	*iter;
 
 	highest = *(int *)stack_b->content;
 	iter = stack_b->next;
@@ -17,16 +28,16 @@ static	int		find_highest(t_list *stack_b)
 	return (highest);
 }
 
-static	int	execute(char *str, t_stacks **stacks, char **solution, int val)
+static	int		execute(char *str, t_stacks **stacks, char **solution, int val)
 {
 	instruct(str, stacks, solution);
 	return (val);
 }
 
-char	*insertion_sort(t_stacks **stacks)
+char			*insertion_sort(t_stacks **stacks)
 {
 	char	*solution;
-	t_ints  vars;
+	t_ints	vars;
 
 	vars.one = find_highest((*stacks)->a);
 	solution = NULL;

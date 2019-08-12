@@ -6,13 +6,13 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/11 19:12:33 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/11 19:23:13 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/12 07:59:23 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_list *get_sorted(t_list *list)
+t_list	*get_sorted(t_list *list)
 {
 	t_list *dest;
 

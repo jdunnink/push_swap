@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   ps_position_sort.c                                 :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jdunnink <marvin@codam.nl>                   +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2019/08/12 07:48:55 by jdunnink       #+#    #+#                */
+/*   Updated: 2019/08/12 07:49:43 by jdunnink      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
-static 	t_list	*add_indices(t_stacks **stacks)
+static	t_list	*add_indices(t_stacks **stacks)
 {
 	t_list		*iter;
 	t_list		*sorted;
@@ -25,22 +36,22 @@ static 	t_list	*add_indices(t_stacks **stacks)
 	return (dest);
 }
 
-char 	*position_sort(t_stacks **stacks, double precision)
+char			*position_sort(t_stacks **stacks, double precision)
 {
-	t_list			*indices;
-	char			*solution;
-	int	curr_pos;
-	int	curr_index;
-	int range_limit;
+	t_list	*indices;
+	char	*solution;
+	int		curr_pos;
+	int		curr_index;
+	int		limit;
 
-	range_limit = ft_listlen((*stacks)->a) * precision;
+	limit = ft_listlen((*stacks)->a) * precision;
 	indices = add_indices(stacks);
 	curr_pos = 0;
 	solution = NULL;
 	while ((*stacks)->a)
 	{
 		curr_index = lookup_index((*stacks)->a->content, indices);
-		if (curr_index <= curr_pos + range_limit && curr_index >= curr_pos - range_limit)
+		if (curr_index <= curr_pos + limit && curr_index >= curr_pos - limit)
 		{
 			instruct(ft_ctostr('b'), stacks, &solution);
 			curr_pos++;

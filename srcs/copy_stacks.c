@@ -6,13 +6,13 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 13:30:42 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/07/23 14:34:39 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/12 08:06:18 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shared.h"
 
-t_stacks *copy_stacks(t_stacks *stacks)
+t_stacks	*copy_stacks(t_stacks *stacks)
 {
 	t_stacks *dest;
 

@@ -1,13 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   shared.h                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jdunnink <marvin@codam.nl>                   +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2019/08/12 08:33:29 by jdunnink      #+#    #+#                 */
+/*   Updated: 2019/08/12 08:33:29 by jdunnink      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef SHARED_H
 # define SHARED_H
 
 # include "../libft/includes/libft.h"
 # include "../libft/includes/get_next_line.h"
-
-#include <stdio.h>			// REMOVE THIS INCLUDE
-
-//	ADD REQUIRED C FLAGS TO MAKEFILE
 
 typedef	struct	s_stacks
 {

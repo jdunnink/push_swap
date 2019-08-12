@@ -1,55 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ps_instruct.c                                      :+:    :+:            */
+/*   ps_print_solution.c                                :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/07/23 12:51:21 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/12 07:58:01 by jdunnink      ########   odam.nl         */
+/*   Created: 2019/08/12 08:35:49 by jdunnink       #+#    #+#                */
+/*   Updated: 2019/08/12 08:43:00 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static	void	execute(char code, t_stacks **stacks)
+static	void	print_instr(char code)
 {
 	if (code == 'a')
-		push_a(stacks);
+		ft_putendl("pa");
 	else if (code == 'b')
-		push_b(stacks);
+		ft_putendl("pb");
 	else if (code == 'c')
-		swap_a(stacks);
+		ft_putendl("sa");
 	else if (code == 'd')
-		swap_b(stacks);
+		ft_putendl("sb");
 	else if (code == 'e')
-		swap_swap(stacks);
+		ft_putendl("ss");
 	else if (code == 'f')
-		rotate_a(stacks);
+		ft_putendl("ra");
 	else if (code == 'g')
-		rotate_b(stacks);
+		ft_putendl("rb");
 	else if (code == 'h')
-		rotate_rotate(stacks);
+		ft_putendl("rr");
 	else if (code == 'i')
-		rev_rotate_a(stacks);
+		ft_putendl("rra");
 	else if (code == 'j')
-		rev_rotate_b(stacks);
+		ft_putendl("rrb");
 	else if (code == 'k')
-		rev_rotate_rotate(stacks);
+		ft_putendl("rrr");
 }
 
-int				instruct(char *str, t_stacks **stacks, char **solution)
+void 	print_solution(char *solution)
 {
 	unsigned i;
 
 	i = 0;
-	while (str[i] != '\0')
+	while (solution[i] != '\0')
 	{
-		execute(str[i], stacks);
+		print_instr(solution[i]);
 		i++;
 	}
-	*solution = ft_stradd(*solution, str);
-	if (check_solved(*stacks) == 1)
-		return (1);
-	return (0);
 }

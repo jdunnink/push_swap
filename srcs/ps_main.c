@@ -6,13 +6,13 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 12:18:43 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/11 20:32:37 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/12 08:03:41 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static 	void 	free_stacks(t_stacks **stacks)
+static	void	free_stacks(t_stacks **stacks)
 {
 	t_list *a;
 	t_list *b;
@@ -26,7 +26,7 @@ static 	void 	free_stacks(t_stacks **stacks)
 	free(*stacks);
 }
 
-static 	void	choose_path(size_t len, t_stacks **stacks, char **solution)
+static	void	choose_path(size_t len, t_stacks **stacks, char **solution)
 {
 	if (len <= 5)
 		*solution = brute_force(stacks);
@@ -43,7 +43,7 @@ static 	void	choose_path(size_t len, t_stacks **stacks, char **solution)
 	}
 }
 
-int	main(int argc, char **argv)
+int				main(int argc, char **argv)
 {
 	t_stacks	*stacks;
 	char		*solution;
@@ -59,8 +59,7 @@ int	main(int argc, char **argv)
 	}
 	len = ft_listlen(stacks->a);
 	choose_path(len, &stacks, &solution);
-	print_state(stacks);
-	printf("	total instructions: %lu\n", ft_strlen(solution));
+	print_solution(solution);
 	free_stacks(&stacks);
 	free(solution);
 	return (0);

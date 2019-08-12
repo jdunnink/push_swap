@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 13:37:26 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/07/23 14:29:08 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/12 07:49:25 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	free_stacks(t_stacks **stacks)
 	*stacks = NULL;
 }
 
-void	reset_stacks(t_stacks **stacks, t_stacks **backup)
+void		reset_stacks(t_stacks **stacks, t_stacks **backup)
 {
 	free_stacks(stacks);
 	*stacks = *backup;

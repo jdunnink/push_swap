@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   read_input.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jdunnink <marvin@codam.nl>                   +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2019/08/12 07:47:17 by jdunnink      #+#    #+#                 */
+/*   Updated: 2019/08/12 07:47:17 by jdunnink      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "checker.h"
 
-static	int	check_nbr(char *nbr)
+static	int		check_nbr(char *nbr)
 {
 	unsigned i;
 
@@ -54,7 +65,7 @@ static	void	check_dup(t_list *a_list)
 	}
 }
 
-void		read_input(int argc, char **argv, t_stacks **stacks)
+void			read_input(int argc, char **argv, t_stacks **stacks)
 {
 	unsigned i;
 

@@ -6,13 +6,13 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 12:41:20 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/08 16:40:02 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/12 08:10:17 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t ft_listlen(t_list *list)
+size_t	ft_listlen(t_list *list)
 {
 	size_t len;
 	t_list *iter;
