@@ -6,7 +6,7 @@
 #    By: jdunnink <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/03/20 09:33:47 by jdunnink       #+#    #+#                 #
-#    Updated: 2019/08/12 13:38:00 by jdunnink      ########   odam.nl          #
+#    Updated: 2019/08/12 18:09:23 by jdunnink      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ PUSH_SWAP_SRC = ps_main.c				\
 				ps_position_sort.c		\
 				ps_insertion_sort.c		\
 				ps_chunk_sort.c			\
+				ps_dynamic_sort.c		\
 				ps_instruct.c			\
 				ps_get_sorted.c			\
 				ps_get_rev_sorted.c		\

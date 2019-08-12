@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/19 12:32:01 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/12 13:38:06 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/12 18:09:34 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ char			*brute_force(t_stacks **stacks);
 char			*position_sort(t_stacks **stacks, double precision);
 char			*insertion_sort(t_stacks **stacks);
 char			*chunk_sort(t_stacks **stacks, int p_rate);
+char			*dynamic_sort(t_stacks **stacks);
 
 int				try_solution(char *str, t_stacks **stacks);
 int				instruct(char *str, t_stacks **stacks, char **solution);
