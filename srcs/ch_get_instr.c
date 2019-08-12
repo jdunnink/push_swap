@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/11 19:56:27 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/12 12:03:27 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/12 14:34:21 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static	void	execute(char *code, t_stacks **stacks)
 {
-	ft_putendl(code);
 	if (ft_strcmp("sa", code) == 0)
 		swap_a(stacks);
 	else if (ft_strcmp("sb", code) == 0)
@@ -39,7 +38,6 @@ static	void	execute(char *code, t_stacks **stacks)
 		rev_rotate_rotate(stacks);
 	else
 		error(6);
-	print_state(*stacks);
 }
 
 void			get_instr(t_stacks **stacks)

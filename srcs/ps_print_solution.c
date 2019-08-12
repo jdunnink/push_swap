@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/12 08:35:49 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/12 11:04:09 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/12 14:32:45 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,40 @@ static	void	print_instr(char code)
 		ft_putendl("rrr");
 }
 
+static	void	check_output(char **solution)
+{
+	char *ptr;
+
+	while (1)
+	{
+		ptr = ft_strstr(*solution, "if");
+		if (ptr != 0)
+		{
+			ptr[0] = '_';
+			ptr[1] = '_';
+		}
+		else
+			break ;
+	}
+	while (1)
+	{
+		ptr = ft_strstr(*solution, "fi");
+		if (ptr != 0)
+		{
+			ptr[0] = '_';
+			ptr[1] = '_';
+		}
+		else
+			break ;
+	}
+}
+
 void			print_solution(char *solution)
 {
 	unsigned i;
 
 	i = 0;
+	check_output(&solution);
 	while (solution[i] != '\0')
 	{
 		print_instr(solution[i]);
