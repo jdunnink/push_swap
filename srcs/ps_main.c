@@ -6,11 +6,13 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 12:18:43 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/12 18:23:03 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/13 17:02:53 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+//	ADD C FLAGS TO MAKEFILE
 
 static	void	free_stacks(t_stacks **stacks)
 {
@@ -28,11 +30,9 @@ static	void	free_stacks(t_stacks **stacks)
 
 static	void	choose_path(size_t len, t_stacks **stacks, char **solution)
 {
-	print_state(*stacks);
-
 	if (len <= 5)
 		*solution = brute_force(stacks);
-	else if (len <= 50)
+	else if (len <= 500)
 		*solution = dynamic_sort(stacks);
 	else if (len <= 100)
 	{

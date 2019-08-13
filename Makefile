@@ -6,7 +6,7 @@
 #    By: jdunnink <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/03/20 09:33:47 by jdunnink       #+#    #+#                 #
-#    Updated: 2019/08/12 18:09:23 by jdunnink      ########   odam.nl          #
+#    Updated: 2019/08/13 15:55:36 by jdunnink      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,7 +84,7 @@ PUSH_SWAP_NAME = push_swap
 
 HEADER = -I includes/
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS =
 LIBS = -L libft/ -lft
 
 all: $(CHECKER_NAME) $(PUSH_SWAP_NAME)

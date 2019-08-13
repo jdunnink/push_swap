@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 12:51:21 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/12 18:25:33 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/13 13:38:02 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,8 @@ int				instruct(char *str, t_stacks **stacks, char **solution)
 {
 	unsigned i;
 
-	printf("	executing instruction: %s\n\n", str);
-
 	i = 0;
+	printf("	executing instruction: %s\n", str);
 	while (str[i] != '\0')
 	{
 		execute(str[i], stacks);
