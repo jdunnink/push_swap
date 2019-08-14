@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/19 12:32:01 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/13 15:55:47 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/14 15:02:59 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,10 @@ typedef	struct	s_ints
 }				t_ints;
 
 char			*brute_force(t_stacks **stacks);
-char			*position_sort(t_stacks **stacks, double precision);
-char			*insertion_sort(t_stacks **stacks);
-char			*chunk_sort(t_stacks **stacks, int p_rate);
 char			*dynamic_sort(t_stacks **stacks);
 
 int				try_solution(char *str, t_stacks **stacks);
 int				instruct(char *str, t_stacks **stacks, char **solution);
-
-t_list			*set_indices(t_stacks **stacks);
-void			adjust_indices(t_list *indices, int p_rate);
-int				find_index(int *value, t_list *indices);
-t_list			*update_indices(t_stacks **stacks, t_list **indices);
-int				lookup_index(int *value, t_list *indices);
 
 t_list			*get_sorted(t_list *list);
 t_list			*get_rev_sorted(t_stacks **stacks);

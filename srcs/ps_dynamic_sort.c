@@ -6,11 +6,21 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/12 17:48:17 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/13 18:11:35 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/14 14:59:36 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
+
+//	type coding --> path codes need to be more specific --> allows for easier action selection
+//
+//	four options for decrementing
+//	only two paths are active at any one time
+//	combine two numbers --> 13 means path one and three are active
+//							12 means path one and two are active
+//							23 means path two and three are active
+//							24 means path two and four are active
+
 
 typedef struct	s_pos
 {
@@ -48,7 +58,7 @@ static 	void 	print_distance_list(t_list *distances)
 	t_list	*iter;
 	t_pos	*curr;
 
-	ft_putchar('\n');
+//	ft_putchar('\n');
 	iter = distances;
 	while (iter)
 	{
@@ -124,7 +134,29 @@ static 	int 	get_highest(t_list *stack, int *high_dis)
 	return (highest);
 }
 
-static	int 	find_place(t_list *stack, int value)
+static 	int 	get_lowest(t_list *stack, int *low_dis)
+{
+	int lowest;
+	t_list *iter;
+	int i;
+
+	i = 0;
+	lowest = *(int *)stack->content;
+	iter = stack;
+	while (iter)
+	{
+		if (*(int *)iter->content < lowest)
+		{
+			*low_dis = i;
+			lowest = *(int *)iter->content;
+		}
+		iter = iter->next;
+		i++;
+	}
+	return (lowest);
+}
+
+static	int 	find_place_rev(t_list *stack, int value)
 {
 	int	dis;
 	int	highest;
@@ -158,7 +190,44 @@ static	int 	find_place(t_list *stack, int value)
 	return (0);
 }
 
-static 	void	get_dest_distances(t_list **distances, t_list *stack)
+static	int 	find_place(t_list *stack, int value)
+{
+	int	dis;
+	int	highest;
+	int	high_dis;
+	int lowest;
+	int low_dis;
+	t_list *iter;
+
+	dis = 1;
+	highest = get_highest(stack, &high_dis);
+	lowest = get_lowest(stack, &low_dis);
+	if (value > highest)
+	{
+//		printf("	value %i is highest!\n", value);
+		return (high_dis + 1);
+	}
+	iter = stack;
+	while (iter->next)
+	{
+		if (*(int *)iter->content < value && *(int *)iter->next->content > value)
+		{
+//			printf("	value %i fits between %i and %i\n", value, *(int *)iter->content, *(int *)iter->next->content);
+			return (dis);
+		}
+		else if (value < *(int *)iter->content && value < *(int *)iter->next->content && *(int *)iter->next->content == lowest)
+		{
+//			printf("	value %i fits between %i and %i\n", value, *(int *)iter->content, *(int *)iter->next->content);
+			return (dis);
+		}
+		dis++;
+		iter = iter->next;
+	}
+//	printf("	could not find placement for value %i--> assuming 0!\n", value);
+	return (0);
+}
+
+static 	void	get_dest_distances(t_list **distances, t_list *stack, char c)
 {
 	t_list	*iter;
 	t_pos	*curr;
@@ -167,7 +236,10 @@ static 	void	get_dest_distances(t_list **distances, t_list *stack)
 	while (iter)
 	{
 		curr = (t_pos *)iter->content;
-		curr->dest_r_dis = find_place(stack, curr->value);
+		if (c == 'a')
+			curr->dest_r_dis = find_place_rev(stack, curr->value);
+		else
+			curr->dest_r_dis = find_place(stack, curr->value);
 		curr->dest_rr_dis = ft_listlen(stack) - curr->dest_r_dis;
 		iter = iter->next;
 	}
@@ -193,27 +265,29 @@ static 	void 	set_paths(t_list **distances)
 		else
 			shortest_dest = curr->dest_rr_dis;
 		if (shortest_dest == curr->dest_rr_dis && shortest_curr == curr->rr_dis)
-			curr->type = 1;
+			curr->type = 24;
 		else if (shortest_dest == curr->dest_r_dis && shortest_curr == curr->r_dis)
-			curr->type = 0;
+			curr->type = 13;
+		else if (shortest_dest == curr->dest_r_dis && shortest_curr == curr->rr_dis) 
+			curr->type = 23;
 		else
-			curr->type = 2;
+			curr->type = 14;
 		curr->path = shortest_curr + shortest_dest;
-		if (curr->type == 0|| curr->type == 1)
+		if (curr->type == 13|| curr->type == 24)
 			curr->path = check_overlap(shortest_curr, shortest_dest, curr->path);
 		iter = iter->next;
 	}
 }
 
-static	void	update_distances(t_list **distances, t_stacks **stacks)
+static	void	update_distances(t_list **distances, t_list *src, t_list *dest, char c)
 {
-	get_distance_list(distances, (*stacks)->a);				// initiate a distance list with the remaining values in stack A;
-	get_dest_distances(distances, (*stacks)->b);			// determine the distances to destination for each value in the dist list;
+	get_distance_list(distances, src);				// initiate a distance list with the remaining values in src stack;
+	get_dest_distances(distances, dest, c);			// determine the distances to destination for each value in the dist list;
 	set_paths(distances);									// determine the shortest path to dest for each value in the dist list
 	print_distance_list(*distances);
 }
 
-static	int	execute(t_list **distances, t_stacks **stacks, char **solution)
+static	int	check_push_b(t_list **distances, t_stacks **stacks, char **solution)
 {
 	t_list	*iter;
 	t_pos	*pos;
@@ -233,40 +307,48 @@ static	int	execute(t_list **distances, t_stacks **stacks, char **solution)
 	return (0);
 }
 
-int 	find_sh(int one, int two, int three, int four)
+int 	find_sh(t_pos *target)
 {
 	int dest;
-	
-	dest = INT32_MAX;
-	if (one < dest && one != 0)
-		dest = one;
-	if (two < dest && two != 0)
-		dest = two;
-	if (three < dest && three != 0)
-		dest = three;
-	if (four < dest && three != 0)
-		dest = four;
-	if (dest == four)
-		return (3);
-	if (dest == three)
+	int one;
+	int two;
+
+	if (target->type == 14)
+	{
+		one = target->r_dis;
+		two = target->dest_rr_dis;
+		if (one == 0)
+			return (3);
+		else if (two == 0)
+			return (0);
+		else if (one < two)
+			return (0);
+		else
+			return (3);
+	}
+	one = target->rr_dis;
+	two = target->dest_r_dis;
+	if (one == 0)
 		return (2);
-	if (dest == two)
+	else if (two == 0)
 		return (1);
-	if (dest == one)
-		return (0);
-	return (-1);
+	else if (one < two)
+		return (1);
+	else
+		return (2);
+
 }
 
-static	void 	choose_action(t_stacks **stacks, char **solution, t_pos *target)
+static	void 	choose_action_a(t_stacks **stacks, char **solution, t_pos *target)
 {
 	char	*actions;
 	int		place;
 
 //	printf("	choosing action for the identified push target..\n");
-	if (target->type == 2)
+	if (target->type == 14 || target->type == 23)
 	{
 //		printf("	this target path combines rotate/rev_rotate --> no double action possible --> reducing lowest non-zero value\n");
-		place = find_sh(target->r_dis, target->rr_dis, target->dest_r_dis, target->dest_rr_dis);
+		place = find_sh(target);
 		if (place == 0)
 			instruct(ft_ctostr('f'), stacks, solution);
 		else if (place == 1)
@@ -276,7 +358,7 @@ static	void 	choose_action(t_stacks **stacks, char **solution, t_pos *target)
 		else
 			instruct(ft_ctostr('j'), stacks, solution);		
 	}
-	else if (target->type == 1)
+	else if (target->type == 24)
 	{
 //		printf("	this target path uses rev_rotate\n");
 		if (target->rr_dis > 0 && target->dest_rr_dis > 0)
@@ -314,7 +396,64 @@ static	void 	choose_action(t_stacks **stacks, char **solution, t_pos *target)
 	}
 } 
 
-static 	void 	choose_target(t_list **distances, t_stacks **stacks, char **solution)
+static	void 	choose_action_b(t_stacks **stacks, char **solution, t_pos *target)
+{
+	char	*actions;
+	int		place;
+
+//	printf("	choosing action for the identified push target..\n");
+	if (target->type == 14 || target->type == 23)
+	{
+//		printf("	this target path combines rotate/rev_rotate --> no double action possible --> reducing lowest non-zero value\n");
+		place = find_sh(target);
+		if (place == 0)
+			instruct(ft_ctostr('g'), stacks, solution);
+		else if (place == 1)
+			instruct(ft_ctostr('j'), stacks, solution);
+		else if (place == 2)
+			instruct(ft_ctostr('f'), stacks, solution);
+		else
+			instruct(ft_ctostr('i'), stacks, solution);		
+	}
+	else if (target->type == 24)
+	{
+//		printf("	this target path uses rev_rotate\n");
+		if (target->rr_dis > 0 && target->dest_rr_dis > 0)
+			instruct(ft_ctostr('k'), stacks, solution);
+		else
+		{
+//			printf("	no double rev_rotate possible --> reducing lowest non-zero rev_rotate\n");
+			if (target->rr_dis == 0)
+				instruct(ft_ctostr('i'), stacks, solution);
+			else if (target->dest_rr_dis == 0)
+				instruct(ft_ctostr('j'), stacks, solution);
+			else if (target->rr_dis < target->dest_rr_dis)
+				instruct(ft_ctostr('j'), stacks, solution);
+			else
+				instruct(ft_ctostr('i'), stacks, solution);
+		}
+	}
+	else
+	{
+//		printf("	this target path uses rotate\n");
+		if (target->r_dis > 0 && target->dest_r_dis > 0)
+			instruct(ft_ctostr('h'), stacks, solution);
+		else
+		{
+//			printf("	no double rotate possible --> reducing lowest non-zero rotate\n");
+			if (target->r_dis == 0)
+				instruct(ft_ctostr('f'), stacks, solution);
+			else if (target->dest_r_dis == 0)
+				instruct(ft_ctostr('g'), stacks, solution);
+			else if (target->r_dis < target->dest_r_dis)
+				instruct(ft_ctostr('g'), stacks, solution);
+			else
+				instruct(ft_ctostr('f'), stacks, solution);
+		}		
+	}
+}
+
+static 	void 	choose_target(t_list **distances, t_stacks **stacks, char **solution, char c)
 {
 	t_list	*iter;
 	t_pos	*curr;
@@ -338,28 +477,73 @@ static 	void 	choose_target(t_list **distances, t_stacks **stacks, char **soluti
 		}
 		iter = iter->next;
 	}
-//	printf("	targeting value %i\n", target->value);
-	choose_action(stacks, solution, target);
+//	printf("	targeting value %i with shortest path: %i\n", target->value, target->path);
+	if (c == 'a')
+		choose_action_a(stacks, solution, target);
+	else
+		choose_action_b(stacks, solution, target);
 }
 
-static	void	finalize(t_stacks **stacks, char **solution)
+static	void	sort_a(t_stacks **stacks, char **solution)
 {
+	t_list *iter;
+	int top;
+	int next;
 	int highest;
 	int high_dis;
-	int rev_dis;
-	int median;
 
-	median = (int)ft_listlen((*stacks)->b) / 2;
-	highest = get_highest((*stacks)->b, &high_dis);
-	rev_dis = (int)ft_listlen((*stacks)->b) - high_dis;
-	if (high_dis < rev_dis)
-		while (*(int *)(*stacks)->b->content != highest)
-			instruct(ft_ctostr('g'), stacks, solution);
+	highest = get_highest((*stacks)->a, &high_dis);
+	while (check_sort((*stacks)->a) == 0)
+	{
+		top = *(int *)(*stacks)->a->content;
+		next = *(int *)(*stacks)->a->next->content;
+		if (next < top && top != highest)
+			instruct(ft_ctostr('c'), stacks, solution);
+		else
+			instruct(ft_ctostr('f'), stacks, solution);
+	}
+	while(*(int *)(*stacks)->a->content != highest)
+		instruct(ft_ctostr('f'), stacks, solution);
+}
+
+static	int	check_push_a(t_list **distances, t_stacks **stacks, char **solution)
+{
+	t_list	*iter;
+	t_pos	*pos;
+
+	iter = *distances;
+	while (iter)
+	{
+		pos = (t_pos *)iter->content;
+		if (pos->r_dis == 0 || pos->rr_dis == 0)
+			if (pos->dest_r_dis == 0 || pos->dest_rr_dis == 0)
+			{
+				instruct(ft_ctostr('a'), stacks, solution);
+				return (1);
+			}
+		iter = iter->next;
+	}
+	return (0);
+}
+
+static	void 	move_to_lowest(t_stacks **stacks, char **solution)
+{
+	t_list *iter;
+	int lowest;
+	int low_dis;
+	int	rev_dis;
+
+//	printf("	move to lowest was called!\n");
+
+	lowest = get_lowest((*stacks)->a, &low_dis);
+//	printf("	lowest value %i was found at distance %i\n", lowest, low_dis);
+	rev_dis = (int)ft_listlen((*stacks)->a) - low_dis;
+	if (rev_dis < low_dis)
+		while(*(int *)(*stacks)->a->content != lowest)
+			instruct(ft_ctostr('i'), stacks, solution);
 	else
-		while (*(int *)(*stacks)->b->content != highest)
-			instruct(ft_ctostr('j'), stacks, solution);
-	while ((*stacks)->b)
-		instruct(ft_ctostr('a'), stacks, solution);
+		while(*(int *)(*stacks)->a->content != lowest)
+			instruct(ft_ctostr('f'), stacks, solution);
 }
 
 char	*dynamic_sort(t_stacks **stacks)
@@ -372,21 +556,30 @@ char	*dynamic_sort(t_stacks **stacks)
 	solution = NULL;
 	distances = NULL;
 	set_up(stacks, &solution);
-	print_state(*stacks);
-	while ((*stacks)->a)
+//	print_state(*stacks);
+	while (ft_listlen((*stacks)->a) > 3)
 	{
-		if (ft_listlen((*stacks)->a) == 2)
-			break ;
-		update_distances(&distances, stacks);
-		if (execute(&distances, stacks, &solution) == 0)
-			choose_target(&distances, stacks, &solution);
-		print_state(*stacks);
+		update_distances(&distances, (*stacks)->a, (*stacks)->b, 'a');
+		if (check_push_b(&distances, stacks, &solution) == 0)
+			choose_target(&distances, stacks, &solution, 'a');
+//		print_state(*stacks);
 		i++;
 	}
-//	finalize(stacks, &solution);
-	print_state(*stacks);
-	ft_putendl(solution);
-	printf("	total instructions: %i\n", (int)ft_strlen(solution));
-	exit (0);
+	sort_a(stacks, &solution);
+//	print_state(*stacks);
+	while ((*stacks)->b)
+	{
+		update_distances(&distances, (*stacks)->b, (*stacks)->a, 'b');
+		if (check_push_a(&distances, stacks, &solution) == 0)
+			choose_target(&distances, stacks, &solution, 'b');
+//		print_state(*stacks);
+	}
+	move_to_lowest(stacks, &solution);
+//	print_state(*stacks);
+//	ft_putendl(solution);
+//	printf("	total instructions: %i\n", (int)ft_strlen(solution));
+//	if (check_solved(*stacks) == 1)
+//		printf("	 this is valid solution!\n");
+//	exit (0);
 	return (solution);
 }
