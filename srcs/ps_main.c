@@ -6,13 +6,11 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 12:18:43 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/14 15:02:28 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/14 17:31:56 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-//	ADD C FLAGS TO MAKEFILE
 
 static	void	free_stacks(t_stacks **stacks)
 {

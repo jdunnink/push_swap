@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/12 08:35:49 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/13 13:29:28 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/14 16:46:48 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ static	void	check_output(char **solution)
 			break ;
 	}
 }
-
-#include <stdio.h>
 
 void			print_solution(char *solution)
 {

@@ -6,7 +6,7 @@
 #    By: jdunnink <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/03/20 09:33:47 by jdunnink       #+#    #+#                 #
-#    Updated: 2019/08/14 15:03:21 by jdunnink      ########   odam.nl          #
+#    Updated: 2019/08/14 17:10:11 by jdunnink      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,19 @@ PUSH_SWAP_SRC = ps_main.c				\
 				ps_get_sorted.c			\
 				ps_get_rev_sorted.c		\
 				ps_print_solution.c		\
+				ps_set_paths.c			\
+				ps_get_highest.c		\
+				ps_get_lowest.c			\
+				ps_get_distance_list.c	\
+				ps_get_dest_distances.c	\
+				ps_choose_act_a.c		\
+				ps_choose_act_b.c		\
+				ps_choose_target.c		\
+				ps_sort_a.c				\
+				ps_move_to_lowest.c		\
+				ps_update_distances.c	\
+				ps_print_distance_list.c	\
+				ps_find_sh.c			\
 				error.c					\
 				print_state.c			\
 				swap_a.c				\
@@ -76,7 +89,7 @@ PUSH_SWAP_NAME = push_swap
 
 HEADER = -I includes/
 CC = gcc
-CFLAGS =
+CFLAGS = -Wall -Wextra -Werror
 LIBS = -L libft/ -lft
 
 all: $(CHECKER_NAME) $(PUSH_SWAP_NAME)

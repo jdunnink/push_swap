@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 12:51:21 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/14 14:58:41 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/14 16:48:28 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,11 @@ static	void	execute(char code, t_stacks **stacks)
 		rev_rotate_rotate(stacks);
 }
 
-#include <stdio.h>
-
 int				instruct(char *str, t_stacks **stacks, char **solution)
 {
 	unsigned i;
 
 	i = 0;
-//	printf("	executing instruction: %s\n", str);
 	while (str[i] != '\0')
 	{
 		execute(str[i], stacks);

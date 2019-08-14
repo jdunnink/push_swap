@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/12 08:04:23 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/12 08:06:02 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/14 17:32:11 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,7 @@ void	error(int error_code)
 		ft_putendl("Error 5: input list contains duplicates.");
 	else if (error_code == 6)
 		ft_putendl("Error 6: invalid instruction encountered.");
+	else if (error_code == 7)
+		ft_putendl("Error 7: could not allocate memory for list node.");
 	exit(0);
 }
