@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/12 07:47:17 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/12 13:40:01 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/27 13:06:14 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static	int		check_nbr(char *nbr)
 {
 	unsigned i;
 
+	if (ft_strlen(nbr) == 0)
+		error(3);
 	i = 0;
 	while (nbr[i] != '\0')
 	{
@@ -70,8 +72,12 @@ static	void	process_alt(char *str, t_stacks **stacks)
 	char	**args;
 	int		i;
 
+	if (ft_strlen(str) == 0)
+		error(3);
+	else if (ft_str_only(str, ' ') == 1)
+		error(3);
 	i = 0;
-	args = ft_strsplit(str, ' ');
+	args = ft_split(str);
 	while (args[i] != NULL)
 	{
 		if (check_nbr(args[i]) == 1)
@@ -80,6 +86,14 @@ static	void	process_alt(char *str, t_stacks **stacks)
 			error(3);
 		i++;
 	}
+	i = 0;
+	while (args[i] != NULL)
+	{
+		free(args[i]);
+		i++;
+	}
+	if (args)
+		free(args);
 }
 
 void			read_input(int argc, char **argv, t_stacks **stacks)

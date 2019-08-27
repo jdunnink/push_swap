@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 12:18:43 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/14 17:31:56 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/15 16:11:08 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static	void	free_stacks(t_stacks **stacks)
 
 static	void	choose_path(size_t len, t_stacks **stacks, char **solution)
 {
-	if (len <= 5)
+	if (len <= 4)
 		*solution = brute_force(stacks);
 	else
 		*solution = dynamic_sort(stacks);
@@ -42,7 +42,7 @@ int				main(int argc, char **argv)
 
 	stacks = NULL;
 	if (argc <= 1)
-		error(1);
+		return (0);
 	else
 	{
 		init_stacks(&stacks);

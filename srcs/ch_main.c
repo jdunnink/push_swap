@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/22 13:47:28 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/12 11:58:46 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/27 13:26:46 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@
 **	After executing the listed instructions,
 **	the checker program will signal to the user if the input list
 **	is now correctly sorted or not.
-**	During development, the checker program also shows the state
-**	of the two stacks, after the execution of each instruction.
-**	--> debug mode? (bonus)
 */
 
 #include "checker.h"

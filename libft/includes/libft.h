@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/03/20 10:03:12 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/11 18:39:23 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/27 13:27:32 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void			ft_uint_trunc(unsigned long long *value, int typesize);
 void			ft_striteri(char *s, void (*f)(unsigned int, char *));
 void			ft_striter(char *s, void (*f)(char *));
 char			**ft_strsplit(char const *s, char c);
+char			**ft_split(char *str);
 char			*ft_strtrim(char const *s);
 char			*ft_strjoin(char const *s1, char const *s2);
 char			*ft_strjoin_free(char *s1, char *s2, int mode);
