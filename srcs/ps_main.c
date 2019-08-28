@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 12:18:43 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/15 16:11:08 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/28 10:43:26 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static	void	choose_path(size_t len, t_stacks **stacks, char **solution)
 {
 	if (len <= 4)
 		*solution = brute_force(stacks);
+	else if (len <= 5)
+		*solution = select_sort(stacks);
 	else
 		*solution = dynamic_sort(stacks);
 }

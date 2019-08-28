@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/19 12:32:01 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/14 17:35:47 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/08/28 11:42:19 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct	s_pos
 
 char			*brute_force(t_stacks **stacks);
 char			*dynamic_sort(t_stacks **stacks);
+char			*select_sort(t_stacks **stacks);
 
 int				try_solution(char *str, t_stacks **stacks);
 int				instruct(char *str, t_stacks **stacks, char **solution);
@@ -52,5 +53,6 @@ void			move_to_lowest(t_stacks **stacks, char **solution);
 void			update_distances(t_list **d, t_list *src, t_list *dst, char c);
 void			print_distance_list(t_list *distances);
 int				find_sh(t_pos *target);
+void			choose_insert(t_stacks **stacks, char **solution);
 
 #endif
