@@ -6,11 +6,20 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/14 16:05:16 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/14 17:29:27 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/10/22 14:02:04 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+/*
+**	choose_target() is called when dynamic_sort() has determined
+**	that a value other than the top value of the source stack
+**	needs to be pushed to the destination stack. Choose_target()
+**	then finds the value with the shortest path() variable in the
+**	distances list and calls choose_act_a/b(), passing the target
+**	value as argument.
+*/
 
 void	choose_target(t_list **distances, t_stacks **stacks, char **sol, char c)
 {
