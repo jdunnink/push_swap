@@ -6,11 +6,17 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/11 19:56:27 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/12 14:34:21 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/10/22 12:11:32 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
+
+/*
+**	execute() receives an instruction code from get_instr()
+**	and executes the corresponding function on the stacks
+**	passed as argument.
+*/
 
 static	void	execute(char *code, t_stacks **stacks)
 {
@@ -39,6 +45,12 @@ static	void	execute(char *code, t_stacks **stacks)
 	else
 		error(6);
 }
+
+/*
+**	get_instr() reads instructions from the standard
+**	input using GNL, verifies them and then executes them
+**	on the stacks passed as arguments.
+*/
 
 void			get_instr(t_stacks **stacks)
 {

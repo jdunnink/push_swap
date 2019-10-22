@@ -6,11 +6,16 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 13:37:26 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/12 07:49:25 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/10/22 12:21:51 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shared.h"
+
+/*
+**	free_stacks() frees the 'stacks' struct passed as argument,
+**	including its contents.
+*/
 
 static void	free_stacks(t_stacks **stacks)
 {
@@ -26,6 +31,12 @@ static void	free_stacks(t_stacks **stacks)
 	free(*stacks);
 	*stacks = NULL;
 }
+
+/*
+**	reset_stacks() takes a 'stacks' struct a and backup version
+**	and resets the primary stack to the previous state represented
+**	by the backup.
+*/
 
 void		reset_stacks(t_stacks **stacks, t_stacks **backup)
 {

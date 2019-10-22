@@ -6,11 +6,17 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 12:18:43 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/28 10:43:26 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/10/22 11:55:17 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+/*
+**	free_stacks() cleans the memory used for the stack
+**	values after a solution has been presented or an error
+**	has occurred.
+*/
 
 static	void	free_stacks(t_stacks **stacks)
 {
@@ -26,6 +32,13 @@ static	void	free_stacks(t_stacks **stacks)
 	free(*stacks);
 }
 
+/*
+**	choose_path() determines which algorithm to use based of the
+**	number of values present in stack A. lists with a length of 4
+**	and below are solved using brute force iteration. Lists of 5
+**	us select_sort() and everything else uses dynamic_sort().
+*/
+
 static	void	choose_path(size_t len, t_stacks **stacks, char **solution)
 {
 	if (len <= 4)
@@ -35,6 +48,16 @@ static	void	choose_path(size_t len, t_stacks **stacks, char **solution)
 	else
 		*solution = dynamic_sort(stacks);
 }
+
+/*
+**	Starting the push_swap program, the stacks are initiated
+**	and the input list is read into stack A. If the list
+**	is longer than one and is currently not sorted, the program
+**	chooses an appropriate algorithm based on the length of the
+**	list, using choose_path(). Afterwards, a solution is presented
+**	to the user using print_solution() in the form of an instruction list
+**	which can be interpreted by the 'checker' program.
+*/
 
 int				main(int argc, char **argv)
 {

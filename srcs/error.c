@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/12 08:04:23 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/15 15:02:08 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/10/22 13:13:34 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	error(int error_code)
 	if (error_code == 1)
 		ft_putendl("Error");
 	else if (error_code == 2)
-		ft_putendl("Error 2: could not allocated memory for new stacks");
+		ft_putendl("Error");
 	else if (error_code == 3)
 		ft_putendl("Error");
 	else if (error_code == 4)
@@ -27,6 +27,6 @@ void	error(int error_code)
 	else if (error_code == 6)
 		ft_putendl("Error");
 	else if (error_code == 7)
-		ft_putendl("Error 7: could not allocate memory for list node.");
+		ft_putendl("Error");
 	exit(0);
 }

@@ -6,11 +6,16 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 12:51:21 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/14 16:48:28 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/10/22 13:06:28 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+/*
+**	execute() takes an instruction code and executes the
+**	corresponding function on the stacks passed as argument.
+*/
 
 static	void	execute(char code, t_stacks **stacks)
 {
@@ -37,6 +42,14 @@ static	void	execute(char code, t_stacks **stacks)
 	else if (code == 'k')
 		rev_rotate_rotate(stacks);
 }
+
+/*
+**	instruct() takes a single or multiple instructions,
+**	in a codified string format (str), and executes those on the stacks
+**	passed as argument. Afterwards, the new instructions are added
+**	to the list of instructions already executed, contained in
+**	'solution'.
+*/
 
 int				instruct(char *str, t_stacks **stacks, char **solution)
 {

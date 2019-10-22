@@ -6,11 +6,16 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 12:51:21 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/12 07:45:53 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/10/22 12:07:48 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+/*
+**	is_all_k() checks if a given solution
+**	contains only 'k' characters.
+*/
 
 static	int		is_all_k(char *solution)
 {
@@ -25,6 +30,15 @@ static	int		is_all_k(char *solution)
 	}
 	return (1);
 }
+
+/*
+**	mod_solution() changes the next solution to try,
+**	by changing the letter to the next one in alphabetical order,
+**	'a' becomes 'b', 'b' becomes 'c'. until 'k' is reached.
+**	if the last tried solution contained only 'k',
+**	the instruction count is increased: 'k' becomes 'aa',
+**	'kk' becomes 'aaa'.
+*/
 
 static	void	mod_solution(char **str)
 {
@@ -47,6 +61,14 @@ static	void	mod_solution(char **str)
 		(*tail)++;
 	}
 }
+
+/*
+**	brute_force() tries to find a solution that sorts
+**	the stacks by trying different combinations of instructions
+**	iteratively. In this approach, every instruction is codified
+**	with a letter ranging from 'a' to 'k'. Different alphabetical
+**	combinations are tried until a valid solution is found.
+*/
 
 char			*brute_force(t_stacks **stacks)
 {

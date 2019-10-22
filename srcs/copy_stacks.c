@@ -6,11 +6,16 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 13:30:42 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/12 08:06:18 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/10/22 12:20:49 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shared.h"
+
+/*
+**	copy_stacks() takes a 'stacks' struct and creates
+**	an exact copy of that struct.
+*/
 
 t_stacks	*copy_stacks(t_stacks *stacks)
 {
