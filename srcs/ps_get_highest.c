@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/14 15:36:11 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/08/14 17:13:44 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/10/23 10:16:27 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	get_highest(t_list *stack, int *high_dis)
 	iter = stack;
 	while (iter)
 	{
-		if (*(int *)iter->content > highest)
+		if (*(int *)iter->content >= highest)
 		{
 			*high_dis = i;
 			highest = *(int *)iter->content;
