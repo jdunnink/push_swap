@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/11 19:56:27 by jdunnink       #+#    #+#                */
-/*   Updated: 2019/10/22 12:11:32 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/10/31 08:15:15 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,10 @@ void			get_instr(t_stacks **stacks)
 	while (get_next_line(0, &instruction) > 0)
 	{
 		if (ft_strlen(instruction) == 0)
+		{
+			free(instruction);
 			break ;
+		}
 		if (instruction)
 		{
 			execute(instruction, stacks);
